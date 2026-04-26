@@ -98,7 +98,7 @@ Azure manages: Everything else
 - Entry point to Azure
 - Billing unit (monthly bill per subscription)
 - Controls what resources can be created
-- Our project: Subscription ID = `c40e63f8-3058-4a39-81a9-d3e58648a4b4`
+- Our project: Subscription ID = `XXXXX-XXXXX-XXXXX-XXXXX`
 
 ### 2. **Resource Group**
 - Logical container for related resources
@@ -339,7 +339,9 @@ Level 4: Resource Details (Configuration)
 ### Our Project's Hierarchy
 
 ```
-Subscription: c40e63f8-3058-4a39-81a9-d3e58648a4b4
+Subscription: XXXXX-XXXXX-XXXXX-XXXXX
+│
+├── Resource Group: azure-learn-rg4a39-81a9-d3e58648a4b4
 │
 ├── Resource Group: azure-learn-rg-dev (Region: westus)
 │   ├── Container Registry: azurelearnacrhof7rpcc
