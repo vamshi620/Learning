@@ -1,9 +1,9 @@
 # Complete Azure and DevOps Learning Documentation
 ## Master Index and Learning Guide
 
-**Last Updated:** April 26, 2026  
-**Total Documents:** 9  
-**Total Content:** 87,000+ words  
+**Last Updated:** 2026  
+**Total Documents:** 11  
+**Total Content:** 265,000+ words  
 
 ---
 
@@ -47,6 +47,14 @@ Start with [08-SECURITY-AND-OPTIMIZATION.md](08-SECURITY-AND-OPTIMIZATION.md), t
 ### For SRE/Operations
 
 Start with [07-MONITORING-AND-LOGGING.md](07-MONITORING-AND-LOGGING.md), then [06-COMMANDS-AND-DEPLOYMENT-GUIDE.md](06-COMMANDS-AND-DEPLOYMENT-GUIDE.md#troubleshooting)
+
+### For Compute/Infrastructure Specialists (NEW)
+
+Start with [10-AZURE-COMPUTE-SERVICES.md](10-AZURE-COMPUTE-SERVICES.md) for VMs, App Service, Functions, ACI, Container Apps, AKS advanced topics, Batch, and VMSS.
+
+### For Storage/Data Engineers (NEW)
+
+Start with [11-AZURE-STORAGE-COMPLETE-GUIDE.md](11-AZURE-STORAGE-COMPLETE-GUIDE.md) for Blob, Files, Queue, Table, ADLS Gen2, Managed Disks, security, and AzCopy.
 
 ---
 
@@ -318,9 +326,53 @@ Observability = Logs + Traces + Metrics
 - Security audit
 - Production deployment
 
+### Document 10: Azure Compute Services — Complete Reference (NEW)
+**Length:** 15,000+ words | **Time:** 60 minutes
+
+**Topics Covered:**
+- Virtual Machines — VM sizes (B, D, E, F, N, H series), images, managed disks, availability sets/zones, networking, extensions, spot VMs, reserved instances; full CLI + Bicep
+- App Service — plans and tiers, deployment slots, auto-scale, custom domains, SSL, ASE; full CLI
+- Azure Functions — hosting plans, all trigger types, input/output bindings, Durable Functions, cold start mitigation; code examples in Python, C#, JavaScript
+- Azure Container Instances (ACI) — container groups, networking, volume mounts; CLI + YAML
+- Azure Container Apps — KEDA scaling, Dapr, revisions/traffic splitting; full CLI
+- AKS Advanced — node pools, kubenet vs Azure CNI vs CNI Overlay, add-ons, upgrades, virtual nodes
+- Azure Batch — pools, jobs, tasks; full CLI
+- VM Scale Sets (VMSS) — uniform vs flexible, autoscale; full CLI
+- Compute service decision guide and pricing comparison
+
+**Use When:**
+- Choosing between compute options (VM vs App Service vs Functions vs AKS)
+- Setting up VMs with proper disk types and availability
+- Building serverless functions with any trigger type
+- Running containers without managing Kubernetes
+- Understanding AKS node pool strategies and networking
+- Running HPC/batch workloads
+
 ---
 
-## LEARNING PATHS
+### Document 11: Azure Storage — Complete Reference Guide (NEW)
+**Length:** 13,000+ words | **Time:** 55 minutes
+
+**Topics Covered:**
+- Storage Accounts — types (GPv2, BlockBlob, FileStorage), replication (LRS/ZRS/GRS/GZRS/RA-GRS/RA-GZRS), access tiers, firewall rules; full CLI
+- Blob Storage — blob types (block/page/append), lifecycle management, immutable storage, versioning, soft delete; full CLI + Python + C# SDK examples, SAS generation
+- Azure Files — SMB vs NFS, share tiers, Azure File Sync, mount on Windows/Linux/macOS; full CLI
+- Queue Storage — visibility timeout, poison message handling; CLI + Python code
+- Table Storage — PartitionKey/RowKey design patterns, query patterns; full CLI
+- ADLS Gen2 — hierarchical namespace, POSIX ACLs, Synapse/Databricks integration; full CLI
+- Managed Disks — all disk types (Ultra/Premium SSD v2/Premium SSD/Standard SSD/HDD), snapshots, encryption (SSE/CMK/ADE); full CLI
+- Storage Security — Entra ID auth, SAS types (account/service/user delegation), CMK, Defender for Storage
+- AzCopy — installation, authentication (SAS/AAD/Managed Identity), copy/sync commands, jobs management, performance tuning
+
+**Use When:**
+- Selecting the right storage service for a use case
+- Implementing blob lifecycle management
+- Securing storage with CMK, private endpoints, or Defender
+- Migrating data with AzCopy
+- Setting up ADLS Gen2 for analytics workloads
+- Managing managed disk encryption and snapshots
+
+---
 
 ### Path 1: Complete Beginner to Azure Expert
 ```
@@ -416,7 +468,21 @@ Total: ~3.5 hours
 ### Azure Services
 | Service | Document | Section |
 |---------|----------|---------|
-| AKS (Kubernetes) | 2 | AKS Deep Dive |
+| Virtual Machines | 10 | Azure Virtual Machines |
+| App Service | 10 | Azure App Service |
+| Azure Functions | 10 | Azure Functions (Serverless) |
+| Container Instances (ACI) | 10 | Azure Container Instances |
+| Container Apps | 10 | Azure Container Apps |
+| AKS (Kubernetes) | 2, 10 | AKS Deep Dive / AKS Advanced |
+| Azure Batch | 10 | Azure Batch |
+| VM Scale Sets (VMSS) | 10 | Virtual Machine Scale Sets |
+| Blob Storage | 11 | Azure Blob Storage |
+| Azure Files | 11 | Azure Files |
+| Queue Storage | 11 | Azure Queue Storage |
+| Table Storage | 11 | Azure Table Storage |
+| ADLS Gen2 | 11 | Azure Data Lake Storage Gen2 |
+| Managed Disks | 11 | Azure Managed Disks |
+| AzCopy | 11 | AzCopy Complete Reference |
 | ACR (Container Registry) | 2 | ACR Deep Dive |
 | Cosmos DB | 2 | Cosmos DB Deep Dive |
 | Key Vault | 2 | Key Vault Deep Dive |
