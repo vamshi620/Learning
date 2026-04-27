@@ -2,8 +2,8 @@
 ## Master Index and Learning Guide
 
 **Last Updated:** 2026  
-**Total Documents:** 11  
-**Total Content:** 265,000+ words  
+**Total Documents:** 21  
+**Total Content:** 420,000+ words  
 
 ---
 
@@ -55,6 +55,42 @@ Start with [10-AZURE-COMPUTE-SERVICES.md](10-AZURE-COMPUTE-SERVICES.md) for VMs,
 ### For Storage/Data Engineers (NEW)
 
 Start with [11-AZURE-STORAGE-COMPLETE-GUIDE.md](11-AZURE-STORAGE-COMPLETE-GUIDE.md) for Blob, Files, Queue, Table, ADLS Gen2, Managed Disks, security, and AzCopy.
+
+### For Database Engineers (NEW)
+
+Start with [12-AZURE-DATABASE-SERVICES.md](12-AZURE-DATABASE-SERVICES.md) for SQL Database, Cosmos DB, PostgreSQL, MySQL, Redis, Synapse Analytics, and migration.
+
+### For Networking Specialists (NEW)
+
+Start with [13-AZURE-NETWORKING-COMPLETE.md](13-AZURE-NETWORKING-COMPLETE.md) for VNet, NSG, Firewall, Load Balancer, App Gateway, Front Door, VPN, ExpressRoute, DNS, and Private Link.
+
+### For DevOps/Pipeline Engineers (NEW)
+
+Start with [14-AZURE-DEVOPS-COMPLETE.md](14-AZURE-DEVOPS-COMPLETE.md) for Azure Boards, Repos, Pipelines, Test Plans, Artifacts, and GitHub Actions comparison.
+
+### For Security & Identity Engineers (NEW)
+
+Start with [15-AZURE-ENTRA-AND-SECURITY.md](15-AZURE-ENTRA-AND-SECURITY.md) for Entra ID, RBAC, Conditional Access, PIM, and Defender for Cloud.
+
+### For Cloud Architects & FinOps (NEW)
+
+Start with [16-AZURE-GOVERNANCE-AND-COST.md](16-AZURE-GOVERNANCE-AND-COST.md) for Azure Policy, Blueprints, Management Groups, Cost Management, and tagging strategies.
+
+### For Reliability/SRE Engineers (NEW)
+
+Start with [17-AZURE-HA-AND-DR.md](17-AZURE-HA-AND-DR.md) for Availability Zones, Azure Site Recovery, Traffic Manager, and geo-redundancy patterns.
+
+### For AI/ML Practitioners (NEW)
+
+Start with [18-AZURE-AI-AND-ML.md](18-AZURE-AI-AND-ML.md) for Azure OpenAI, Cognitive Services, Azure ML Studio, and MLOps pipelines.
+
+### For Terraform/IaC Engineers (NEW)
+
+Start with [19-AZURE-TERRAFORM-GUIDE.md](19-AZURE-TERRAFORM-GUIDE.md) for Terraform provider configuration, remote state, module patterns, and AKS/networking examples.
+
+### For Certification Candidates (NEW)
+
+Start with [20-AZURE-CERTIFICATIONS-GUIDE.md](20-AZURE-CERTIFICATIONS-GUIDE.md) for AZ-900 through AZ-305 roadmaps, study strategies, and specialty certification paths.
 
 ---
 
@@ -374,6 +410,202 @@ Observability = Logs + Traces + Metrics
 
 ---
 
+### Document 12: Azure Database Services — Complete Reference (NEW)
+**Length:** 14,000+ words | **Time:** 55 minutes
+
+**Topics Covered:**
+- Azure SQL Database — DTU vs vCore, elastic pools, serverless, Business Critical/Hyperscale tiers; full CLI
+- Cosmos DB — NoSQL APIs (SQL, MongoDB, Cassandra, Gremlin, Table), global distribution, consistency levels, partition design, change feed
+- Azure Database for PostgreSQL / MySQL / MariaDB — flexible server, high availability, read replicas, extensions
+- Azure Cache for Redis — tiers, eviction policies, clustering, persistence, client usage patterns
+- Azure Synapse Analytics — dedicated vs serverless SQL pools, Spark, pipelines, ADLS Gen2 integration
+- Database migration — Azure Database Migration Service, lift-and-shift vs modernise paths
+- High availability and geo-replication patterns across all database services
+
+**Use When:**
+- Choosing the right database service for a workload
+- Designing partition keys and consistency in Cosmos DB
+- Setting up read replicas or geo-failover for SQL
+- Caching data with Redis to reduce database load
+- Running analytics with Synapse on top of ADLS Gen2
+
+---
+
+### Document 13: Azure Networking — Complete Reference (NEW)
+**Length:** 15,000+ words | **Time:** 60 minutes
+
+**Topics Covered:**
+- VNet, subnets, address spaces, peering (VNet peering, global peering)
+- NSG — rules, flow logs, application security groups (ASG)
+- Azure Firewall — Premium SKU, IDPS, TLS inspection, policy hierarchy
+- Load Balancer (L4) — standard SKU, backend pools, health probes, outbound rules
+- Application Gateway (L7) — WAF v2, URL-based routing, SSL termination, autoscaling
+- Azure Front Door — global load balancing, CDN, WAF at edge, origin groups
+- VPN Gateway — site-to-site, point-to-site, active-active; full CLI
+- ExpressRoute — circuits, peering types, Global Reach, FastPath
+- Azure DNS, Private DNS Zones — resolution, auto-registration, split-horizon
+- Private Link & Private Endpoints — securing PaaS services to VNet
+- Network Watcher — connection monitor, flow logs, topology, packet capture
+- DDoS Protection — basic vs standard, adaptive tuning, attack analytics
+
+**Use When:**
+- Designing hub-spoke or flat VNet topologies
+- Locking down PaaS services with Private Endpoints
+- Choosing between L4 and L7 load balancing
+- Setting up hybrid connectivity (VPN vs ExpressRoute)
+- Troubleshooting network connectivity with Network Watcher
+
+---
+
+### Document 14: Azure DevOps — Complete A-Z Reference (NEW)
+**Length:** 14,500+ words | **Time:** 55 minutes
+
+**Topics Covered:**
+- Azure Boards — work item types, Agile/Scrum/Kanban boards, sprints, queries, reporting
+- Azure Repos — Git branching strategies, pull requests, branch policies, protected branches
+- Azure Pipelines — YAML multi-stage pipelines, classic editor, agents (Microsoft-hosted vs self-hosted), environments, deployment gates
+- Pipeline templates — extends templates, parameter passing, reusable job templates
+- Azure Test Plans — manual testing, exploratory testing, test suites
+- Azure Artifacts — feed management, NuGet/npm/Maven/pip, upstream sources
+- GitHub Actions comparison — when to use each, migration path
+- Real-world patterns — PR-triggered builds, deployment to AKS, rollback strategies
+
+**Use When:**
+- Setting up end-to-end DevOps with Azure Boards + Repos + Pipelines
+- Designing branching strategies with enforcement policies
+- Building reusable YAML pipeline templates
+- Managing package feeds with Azure Artifacts
+- Deciding between Azure Pipelines and GitHub Actions
+
+---
+
+### Document 15: Azure Entra ID & Security — Complete Reference (NEW)
+**Length:** 15,000+ words | **Time:** 60 minutes
+
+**Topics Covered:**
+- Azure Entra ID (formerly Azure Active Directory) — tenants, users, groups, app registrations, service principals
+- RBAC — built-in roles, custom roles, role assignments, scope hierarchy
+- Conditional Access — named locations, sign-in risk, device compliance, MFA enforcement
+- Privileged Identity Management (PIM) — just-in-time access, access reviews, eligible assignments
+- Microsoft Defender for Cloud — security posture, recommendations, Secure Score, Defender plans
+- Microsoft Sentinel overview — SIEM/SOAR, data connectors, analytics rules
+- Key Vault — secrets, certificates, keys; access policies vs RBAC; soft-delete and purge protection
+- Zero Trust principles applied to Azure
+
+**Use When:**
+- Configuring identity and access for an Azure environment
+- Implementing least-privilege with PIM and Conditional Access
+- Hardening security posture using Defender for Cloud
+- Integrating Key Vault with applications and pipelines
+
+---
+
+### Document 16: Azure Governance & Cost Management — Complete Reference (NEW)
+**Length:** 13,000+ words | **Time:** 50 minutes
+
+**Topics Covered:**
+- Management Groups — hierarchy, policy inheritance, RBAC delegation
+- Azure Policy — definitions, initiatives, assignment scopes, deny/audit/DeployIfNotExists effects, remediation tasks
+- Azure Blueprints — artifact types (policy, RBAC, ARM, resource group), versioning, locking
+- Resource tagging — tag taxonomy, tag inheritance with Policy, enforcing required tags
+- Cost Management + Billing — budgets, cost alerts, cost analysis, advisor recommendations
+- Azure Reservations and Savings Plans — commitment tiers, scope, exchange/cancellation
+- Naming conventions and resource organisation best practices
+
+**Use When:**
+- Establishing guardrails across subscriptions with Azure Policy
+- Building repeatable compliant environments with Blueprints
+- Tracking and controlling cloud spend with budgets and alerts
+- Designing a Management Group hierarchy for a multi-subscription estate
+
+---
+
+### Document 17: Azure High Availability & Disaster Recovery (NEW)
+**Length:** 13,500+ words | **Time:** 50 minutes
+
+**Topics Covered:**
+- SLA concepts — uptime percentages, composite SLAs, SLO vs SLI vs SLA
+- Availability Sets vs Availability Zones — fault domains, update domains, zone-redundant deployments
+- Azure Site Recovery (ASR) — replication, failover, failback, recovery plans; for VMs and physical servers
+- Azure Backup — MARS agent, MABS, backup vault, soft-delete, cross-region restore
+- Traffic Manager — routing methods (priority, weighted, performance, geographic, multivalue, subnet)
+- Azure Front Door as a global failover layer
+- Geo-redundant architectures — active-active vs active-passive, paired regions
+- RTO/RPO planning and DR runbooks
+
+**Use When:**
+- Designing for 99.99% uptime with zone-redundant architectures
+- Implementing DR for VMs with Azure Site Recovery
+- Building global load balancing with Traffic Manager or Front Door
+- Creating backup strategies that meet RPO/RTO targets
+
+---
+
+### Document 18: Azure AI & Machine Learning (NEW)
+**Length:** 15,500+ words | **Time:** 60 minutes
+
+**Topics Covered:**
+- Azure OpenAI Service — GPT-4o, embeddings, DALL·E, fine-tuning, content filtering, responsible AI
+- Azure Cognitive Services — Vision, Speech, Language, Decision APIs
+- Azure AI Search (formerly Cognitive Search) — indexers, skillsets, semantic ranking, vector search
+- Azure Machine Learning — workspaces, compute clusters, datastores, environments, pipelines
+- AutoML and Designer — no-code/low-code model training
+- MLflow integration — experiment tracking, model registry, deployment
+- MLOps patterns — CI/CD for ML models, model monitoring, data drift detection
+- Azure Bot Service and Language Understanding (CLU/LUIS)
+
+**Use When:**
+- Integrating GPT models into applications with Azure OpenAI
+- Building search experiences with vector + keyword hybrid search
+- Training and deploying ML models at scale with Azure ML
+- Implementing responsible AI practices with content filtering
+
+---
+
+### Document 19: Azure Terraform Guide — Complete Reference (NEW)
+**Length:** 16,000+ words | **Time:** 65 minutes
+
+**Topics Covered:**
+- Terraform fundamentals — providers, resources, data sources, variables, outputs, locals
+- AzureRM provider configuration — authentication methods (service principal, managed identity, CLI)
+- Remote state in Azure Storage — backend configuration, state locking, workspaces
+- Module design patterns — input/output contracts, versioning, registry publishing
+- Core Azure resource examples — resource groups, VNet, NSG, AKS, App Service, Key Vault, SQL Database
+- AKS with Terraform — node pool management, RBAC, add-on configuration
+- Import, moved blocks, and refactoring existing infrastructure
+- Terraform Cloud / Atlantis for team workflows
+- Best practices — DRY modules, variable validation, preconditions, testing with Terratest
+
+**Use When:**
+- Provisioning Azure infrastructure with Terraform instead of Bicep
+- Designing reusable modules for multi-environment deployments
+- Managing remote state and enabling team collaboration
+- Importing existing Azure resources into Terraform state
+
+---
+
+### Document 20: Azure Certifications Guide — Complete Roadmap (NEW)
+**Length:** 13,000+ words | **Time:** 50 minutes
+
+**Topics Covered:**
+- AZ-900: Azure Fundamentals — exam domains, study strategy, key concepts checklist
+- AZ-104: Azure Administrator — identity, storage, compute, networking, monitoring
+- AZ-204: Azure Developer — App Service, Functions, Cosmos DB, API Management, messaging
+- AZ-305: Azure Solutions Architect Expert — design patterns, reliability, security, cost optimisation
+- AZ-400: DevOps Engineer Expert — pipelines, Git, testing, monitoring, compliance
+- Specialty certifications — AZ-500 (Security), AZ-700 (Networking), DP-203 (Data), AI-102 (AI)
+- Learning paths — which certs to stack, recommended order
+- Study resources — Microsoft Learn, practice exams, hands-on labs
+- Exam tips — question strategies, time management, scenario-based questions
+
+**Use When:**
+- Planning an Azure certification journey
+- Identifying knowledge gaps for a specific exam
+- Choosing between Administrator (AZ-104) and Developer (AZ-204) tracks
+- Preparing for the Solutions Architect Expert (AZ-305)
+
+---
+
 ### Path 1: Complete Beginner to Azure Expert
 ```
 1. Document 1: Fundamentals (30 min)
@@ -392,30 +624,66 @@ Total: ~6 hours of learning
 ```
 1. Document 4: Infrastructure (50 min)
 2. Document 5: CI/CD (45 min)
-3. Document 6: Commands (60 min)
-4. Hands-on: Deploy yourself (120 min)
+3. Document 14: Azure DevOps (55 min)
+4. Document 6: Commands (60 min)
+5. Hands-on: Deploy yourself (120 min)
 
-Total: ~4 hours
+Total: ~5.5 hours
 ```
 
 ### Path 3: Security Deep Dive
 ```
 1. Document 8: Security (50 min)
-2. Document 4: Kubernetes Section (20 min)
-3. Document 2: Key Vault (15 min)
-4. Hands-on: Configure RBAC (60 min)
+2. Document 15: Entra ID & Security (60 min)
+3. Document 9: IAM (45 min)
+4. Document 4: Kubernetes Section (20 min)
+5. Document 2: Key Vault (15 min)
+6. Hands-on: Configure RBAC (60 min)
 
-Total: ~2.5 hours
+Total: ~4 hours
 ```
 
 ### Path 4: Troubleshooting & Operations
 ```
 1. Document 6: Troubleshooting (30 min)
 2. Document 7: Monitoring (40 min)
-3. Document 6: Commands (60 min)
-4. Hands-on: Debug issues (90 min)
+3. Document 17: HA & DR (50 min)
+4. Document 6: Commands (60 min)
+5. Hands-on: Debug issues (90 min)
 
-Total: ~3.5 hours
+Total: ~4.5 hours
+```
+
+### Path 5: Cloud Architect Track (NEW)
+```
+1. Document 1: Fundamentals (30 min)
+2. Document 13: Networking (60 min)
+3. Document 16: Governance & Cost (50 min)
+4. Document 17: HA & DR (50 min)
+5. Document 15: Security (60 min)
+6. Document 20: Certifications — AZ-305 (30 min)
+
+Total: ~5 hours
+```
+
+### Path 6: Terraform/IaC Engineer (NEW)
+```
+1. Document 4: Infrastructure concepts (50 min)
+2. Document 19: Terraform Guide (65 min)
+3. Document 13: Networking (60 min)
+4. Hands-on: Provision AKS with Terraform (120 min)
+
+Total: ~5 hours
+```
+
+### Path 7: Azure Certification Prep (NEW)
+```
+1. Document 20: Certifications Guide — pick your target cert
+2. Follow the document map for each exam domain
+3. Use Microsoft Learn + practice exams
+4. Hands-on labs in Azure free account
+
+Refer to Document 20 for per-cert study roadmaps
 ```
 
 ---
@@ -427,30 +695,61 @@ Total: ~3.5 hours
 - Then: Document 1 (Fundamentals)
 - Reference: Document 6 (Commands)
 - Deep dive: Document 8 (Optimization)
+- New: Document 18 (AI/ML integration)
 
 ### DevOps Engineer
 - Start: Document 4 (Infrastructure)
 - Then: Document 5 (CI/CD)
+- Then: Document 14 (Azure DevOps)
 - Reference: Document 6 (Commands)
 - Deep dive: Document 7 (Monitoring)
+- New: Document 19 (Terraform)
 
 ### System Administrator
 - Start: Document 2 (Services)
 - Then: Document 4 (Infrastructure)
+- Then: Document 10 (Compute)
 - Reference: Document 6 (Commands)
 - Deep dive: Document 8 (Security)
+- New: Document 13 (Networking)
 
 ### Security Officer
-- Start: Document 8 (Security)
-- Then: Document 2 (Services - Key Vault section)
+- Start: Document 15 (Entra ID & Security)
+- Then: Document 8 (Security)
+- Then: Document 9 (IAM)
 - Reference: Document 4 (Networking)
 - Deep dive: Document 6 (RBAC commands)
+- New: Document 16 (Governance)
 
 ### SRE/Operations
 - Start: Document 7 (Monitoring)
+- Then: Document 17 (HA & DR)
 - Then: Document 6 (Commands)
 - Reference: Document 6 (Troubleshooting)
 - Deep dive: Document 8 (Performance)
+
+### Cloud Architect
+- Start: Document 1 (Fundamentals)
+- Then: Document 13 (Networking)
+- Then: Document 15 (Security)
+- Then: Document 16 (Governance & Cost)
+- Deep dive: Document 17 (HA & DR)
+- Certification: Document 20 (AZ-305 path)
+
+### Database Engineer
+- Start: Document 12 (Database Services)
+- Then: Document 2 (Cosmos DB, Key Vault)
+- Deep dive: Document 11 (ADLS Gen2, Storage)
+
+### AI/ML Engineer
+- Start: Document 18 (AI & ML)
+- Then: Document 11 (ADLS Gen2 for data)
+- Then: Document 12 (Database for features/embeddings)
+
+### Terraform/IaC Engineer
+- Start: Document 19 (Terraform Guide)
+- Then: Document 13 (Networking resources)
+- Then: Document 4 (Concepts to map to Terraform)
 
 ---
 
@@ -484,11 +783,33 @@ Total: ~3.5 hours
 | Managed Disks | 11 | Azure Managed Disks |
 | AzCopy | 11 | AzCopy Complete Reference |
 | ACR (Container Registry) | 2 | ACR Deep Dive |
-| Cosmos DB | 2 | Cosmos DB Deep Dive |
-| Key Vault | 2 | Key Vault Deep Dive |
-| Virtual Network | 2 | VNet Deep Dive |
-| Managed Identity | 2 | Managed Identity |
-| Load Balancer | 2 | Load Balancer |
+| Cosmos DB | 2, 12 | Cosmos DB Deep Dive / Database Services |
+| Key Vault | 2, 15 | Key Vault Deep Dive / Entra & Security |
+| Virtual Network | 2, 13 | VNet Deep Dive / Networking Complete |
+| Managed Identity | 2, 9 | Managed Identity / IAM |
+| Load Balancer | 2, 13 | Load Balancer / Networking Complete |
+| Azure SQL Database | 12 | Azure SQL Database |
+| Azure PostgreSQL / MySQL | 12 | PostgreSQL / MySQL Flexible Server |
+| Azure Cache for Redis | 12 | Azure Cache for Redis |
+| Azure Synapse Analytics | 12 | Azure Synapse Analytics |
+| Azure Firewall | 13 | Azure Firewall |
+| Application Gateway | 13 | Application Gateway |
+| Azure Front Door | 13 | Azure Front Door |
+| VPN Gateway | 13 | VPN Gateway |
+| ExpressRoute | 13 | ExpressRoute |
+| Azure DNS | 13 | Azure DNS |
+| Private Link | 13 | Private Link & Private Endpoints |
+| Azure Entra ID (AAD) | 15 | Azure Entra ID |
+| Conditional Access | 15 | Conditional Access |
+| PIM | 15 | Privileged Identity Management |
+| Defender for Cloud | 15 | Microsoft Defender for Cloud |
+| Azure OpenAI | 18 | Azure OpenAI Service |
+| Cognitive Services | 18 | Azure Cognitive Services |
+| Azure ML Studio | 18 | Azure Machine Learning |
+| Azure AI Search | 18 | Azure AI Search |
+| Azure Site Recovery | 17 | Azure Site Recovery |
+| Traffic Manager | 17 | Traffic Manager |
+| Azure Backup | 17 | Azure Backup |
 
 ### Application Architecture
 | Topic | Document | Section |
@@ -547,12 +868,105 @@ Total: ~3.5 hours
 | Topic | Document | Section |
 |-------|----------|---------|
 | Security layers | 8 | Security Foundations |
-| RBAC | 8 | Auth & Authorization |
-| Network security | 8 | Network Security |
+| RBAC | 8, 15 | Auth & Authorization / Entra RBAC |
+| Network security | 8, 13 | Network Security / Networking Complete |
 | Encryption | 8 | Data Protection |
 | Performance optimization | 8 | Optimization |
 | Scalability | 8 | Scalability |
 | Production checklist | 8 | Production Checklist |
+
+### Identity & Access Management
+| Topic | Document | Section |
+|-------|----------|---------|
+| Service Principals | 9 | Service Principal |
+| Managed Identity | 9, 2 | Managed Identity |
+| Workload Identity | 9 | Workload Identity |
+| Azure Entra ID | 15 | Azure Entra ID |
+| Conditional Access | 15 | Conditional Access |
+| PIM (Just-in-time) | 15 | Privileged Identity Management |
+| App Registrations | 15 | App Registrations |
+
+### Database Services
+| Topic | Document | Section |
+|-------|----------|---------|
+| Azure SQL Database | 12 | Azure SQL Database |
+| Cosmos DB | 12 | Cosmos DB |
+| PostgreSQL / MySQL | 12 | PostgreSQL / MySQL Flexible Server |
+| Redis Cache | 12 | Azure Cache for Redis |
+| Synapse Analytics | 12 | Azure Synapse Analytics |
+| Database migration | 12 | Database Migration |
+| Geo-replication | 12 | High Availability |
+
+### Networking
+| Topic | Document | Section |
+|-------|----------|---------|
+| VNet and subnets | 13 | VNet |
+| NSG and ASG | 13 | NSG |
+| Azure Firewall | 13 | Azure Firewall |
+| Load Balancer (L4) | 13 | Load Balancer |
+| Application Gateway (L7) | 13 | Application Gateway |
+| Azure Front Door | 13 | Azure Front Door |
+| VPN Gateway | 13 | VPN Gateway |
+| ExpressRoute | 13 | ExpressRoute |
+| Azure DNS | 13 | Azure DNS |
+| Private Link | 13 | Private Link & Private Endpoints |
+| Network Watcher | 13 | Network Watcher |
+
+### Governance & Cost
+| Topic | Document | Section |
+|-------|----------|---------|
+| Management Groups | 16 | Management Groups |
+| Azure Policy | 16 | Azure Policy |
+| Azure Blueprints | 16 | Azure Blueprints |
+| Resource tagging | 16 | Resource Tagging |
+| Cost Management | 16 | Cost Management + Billing |
+| Reservations & Savings Plans | 16 | Azure Reservations |
+| Naming conventions | 16 | Naming Conventions |
+
+### High Availability & Disaster Recovery
+| Topic | Document | Section |
+|-------|----------|---------|
+| Availability Zones | 17 | Availability Zones |
+| Availability Sets | 17 | Availability Sets |
+| Azure Site Recovery | 17 | Azure Site Recovery |
+| Azure Backup | 17 | Azure Backup |
+| Traffic Manager | 17 | Traffic Manager |
+| Active-active architectures | 17 | Geo-redundant Architectures |
+| RTO / RPO planning | 17 | RTO/RPO Planning |
+
+### AI & Machine Learning
+| Topic | Document | Section |
+|-------|----------|---------|
+| Azure OpenAI | 18 | Azure OpenAI Service |
+| Cognitive Services | 18 | Azure Cognitive Services |
+| Azure AI Search | 18 | Azure AI Search |
+| Azure ML workspace | 18 | Azure Machine Learning |
+| AutoML | 18 | AutoML and Designer |
+| MLOps / MLflow | 18 | MLOps Patterns |
+| Responsible AI | 18 | Responsible AI |
+
+### Terraform / IaC
+| Topic | Document | Section |
+|-------|----------|---------|
+| Terraform provider setup | 19 | AzureRM Provider |
+| Remote state (Azure Storage) | 19 | Remote State |
+| Module design | 19 | Module Design Patterns |
+| AKS with Terraform | 19 | AKS with Terraform |
+| Importing existing resources | 19 | Import and Moved Blocks |
+| Terraform best practices | 19 | Best Practices |
+
+### Certifications
+| Certification | Document | Section |
+|--------------|----------|---------|
+| AZ-900 Fundamentals | 20 | AZ-900 |
+| AZ-104 Administrator | 20 | AZ-104 |
+| AZ-204 Developer | 20 | AZ-204 |
+| AZ-305 Architect | 20 | AZ-305 |
+| AZ-400 DevOps | 20 | AZ-400 |
+| AZ-500 Security | 20 | AZ-500 |
+| AZ-700 Networking | 20 | AZ-700 |
+| DP-203 Data | 20 | DP-203 |
+| AI-102 AI Engineer | 20 | AI-102 |
 
 ---
 
@@ -736,19 +1150,31 @@ Follow Document 8 optimization
 ✅ Complete Azure architecture
 ✅ All Azure services used in this project
 ✅ Application design patterns
-✅ Infrastructure as Code (Bicep)
+✅ Infrastructure as Code (Bicep & Terraform)
 ✅ Docker and Kubernetes
-✅ CI/CD pipelines
+✅ CI/CD pipelines and Azure DevOps
 ✅ Monitoring and logging
 ✅ Security and optimization
+✅ Identity and access management
+✅ Compute and storage deep dives
+✅ Database services (SQL, Cosmos DB, PostgreSQL, Redis, Synapse)
+✅ Networking (VNet, Firewall, Load Balancer, VPN, ExpressRoute)
+✅ Entra ID, Conditional Access, and PIM
+✅ Governance, Cost Management, and Azure Policy
+✅ High Availability and Disaster Recovery
+✅ AI/ML with Azure OpenAI and Azure ML
+✅ Terraform on Azure
+✅ Azure Certification roadmaps
 
 ### What's Next
 1. **Deploy this application** using Document 6
-2. **Implement security** using Document 8
+2. **Implement security** using Documents 8 and 15
 3. **Set up monitoring** using Document 7
-4. **Create CI/CD pipeline** using Document 5
+4. **Create CI/CD pipeline** using Documents 5 and 14
 5. **Perform load testing** using Document 5
 6. **Move to production** using Document 8 checklist
+7. **Pursue certification** using Document 20 roadmap
+8. **Adopt Terraform** for infrastructure using Document 19
 
 ### Continuous Learning
 - Read one document per week
@@ -762,17 +1188,17 @@ Follow Document 8 optimization
 ## DOCUMENT STATS
 
 ```
-Total Documents: 8
-Total Words: ~75,000
-Total Sections: 50+
-Code Examples: 150+
-Diagrams: 30+
-Commands: 200+
-Checklists: 5+
+Total Documents: 21
+Total Words: ~420,000
+Total Sections: 200+
+Code Examples: 600+
+Diagrams: 80+
+Commands: 500+
+Checklists: 20+
 
 Reading Time:
-- Quick read (all): 6-8 hours
-- Deep study (all): 2-3 days
+- Quick read (all): 18-20 hours
+- Deep study (all): 5-7 days
 - Reference lookups: 5-30 minutes each
 ```
 
@@ -783,7 +1209,8 @@ Reading Time:
 All documents are stored in the DOCS folder:
 
 ```
-c:\VAMSHI\Shama Agents\AzureLearnApp\DOCS\
+Azure Learning/
+├─ 00-MASTER-INDEX.md (this file)
 ├─ 01-AZURE-FUNDAMENTALS-AND-OVERVIEW.md
 ├─ 02-AZURE-SERVICES-DEEP-DIVE.md
 ├─ 03-APPLICATION-CODE-ARCHITECTURE.md
@@ -792,7 +1219,18 @@ c:\VAMSHI\Shama Agents\AzureLearnApp\DOCS\
 ├─ 06-COMMANDS-AND-DEPLOYMENT-GUIDE.md
 ├─ 07-MONITORING-AND-LOGGING.md
 ├─ 08-SECURITY-AND-OPTIMIZATION.md
-└─ 00-MASTER-INDEX.md (this file)
+├─ 09-IDENTITY-AND-ACCESS-MANAGEMENT.md
+├─ 10-AZURE-COMPUTE-SERVICES.md
+├─ 11-AZURE-STORAGE-COMPLETE-GUIDE.md
+├─ 12-AZURE-DATABASE-SERVICES.md
+├─ 13-AZURE-NETWORKING-COMPLETE.md
+├─ 14-AZURE-DEVOPS-COMPLETE.md
+├─ 15-AZURE-ENTRA-AND-SECURITY.md
+├─ 16-AZURE-GOVERNANCE-AND-COST.md
+├─ 17-AZURE-HA-AND-DR.md
+├─ 18-AZURE-AI-AND-ML.md
+├─ 19-AZURE-TERRAFORM-GUIDE.md
+└─ 20-AZURE-CERTIFICATIONS-GUIDE.md
 ```
 
 ---
