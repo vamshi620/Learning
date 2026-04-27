@@ -1,9 +1,9 @@
 # Complete Azure and DevOps Learning Documentation
 ## Master Index and Learning Guide
 
-**Last Updated:** 2026  
-**Total Documents:** 21  
-**Total Content:** 420,000+ words  
+**Last Updated:** April 27, 2026  
+**Total Documents:** 30  
+**Total Content:** 550,000+ words  
 
 ---
 
@@ -91,6 +91,42 @@ Start with [19-AZURE-TERRAFORM-GUIDE.md](19-AZURE-TERRAFORM-GUIDE.md) for Terraf
 ### For Certification Candidates (NEW)
 
 Start with [20-AZURE-CERTIFICATIONS-GUIDE.md](20-AZURE-CERTIFICATIONS-GUIDE.md) for AZ-900 through AZ-305 roadmaps, study strategies, and specialty certification paths.
+
+### For Helm / Kubernetes Packaging Engineers (NEW)
+
+Start with [21-HELM-CHARTS-COMPLETE-GUIDE.md](21-HELM-CHARTS-COMPLETE-GUIDE.md) for chart creation, templating, values management, CI/CD integration, and best practices.
+
+### For .NET Developers — Docker + AKS Playbook (NEW)
+
+Start with [22-DOCKER-AKS-DOTNET-STEP-BY-STEP.md](22-DOCKER-AKS-DOTNET-STEP-BY-STEP.md) for a complete 10-phase checklist to Dockerize any .NET application and deploy it to AKS.
+
+### For Messaging / Event-Driven Architects (NEW)
+
+Start with [23-AZURE-SERVICE-BUS-AND-MESSAGING.md](23-AZURE-SERVICE-BUS-AND-MESSAGING.md) for Service Bus queues, topics, Event Grid, Event Hub, and messaging pattern selection.
+
+### For API Architects / Backend Engineers (NEW)
+
+Start with [24-AZURE-API-MANAGEMENT-COMPLETE.md](24-AZURE-API-MANAGEMENT-COMPLETE.md) for API gateway, policies, OAuth, rate limiting, versioning, and developer portal.
+
+### For Serverless Container Developers (NEW)
+
+Start with [25-AZURE-CONTAINER-APPS-COMPLETE.md](25-AZURE-CONTAINER-APPS-COMPLETE.md) for serverless containers, KEDA scaling, Dapr integration, and traffic splitting.
+
+### For Local Development / Docker Compose (NEW)
+
+Start with [26-DOCKER-COMPOSE-LOCAL-DEVELOPMENT.md](26-DOCKER-COMPOSE-LOCAL-DEVELOPMENT.md) for multi-container local dev, database emulators, hot reload, and debugging.
+
+### For Customer Identity (B2C / CIAM) Engineers (NEW)
+
+Start with [27-ENTRA-EXTERNAL-ID-CUSTOMER-IDENTITY.md](27-ENTRA-EXTERNAL-ID-CUSTOMER-IDENTITY.md) for social logins, customer sign-up/sign-in, token customization, and branding.
+
+### For GitOps / Kubernetes Deployment Engineers (NEW)
+
+Start with [28-GITOPS-FLUX-ARGOCD-ON-AKS.md](28-GITOPS-FLUX-ARGOCD-ON-AKS.md) for pull-based deployment, Flux CD, ArgoCD, Kustomize overlays, and secrets management.
+
+### For Service Mesh / Zero-Trust Networking Engineers (NEW)
+
+Start with [29-SERVICE-MESH-ISTIO-LINKERD-AKS.md](29-SERVICE-MESH-ISTIO-LINKERD-AKS.md) for Istio, Linkerd, mTLS, traffic management, and AKS Istio add-on.
 
 ---
 
@@ -603,6 +639,205 @@ Observability = Logs + Traces + Metrics
 - Identifying knowledge gaps for a specific exam
 - Choosing between Administrator (AZ-104) and Developer (AZ-204) tracks
 - Preparing for the Solutions Architect Expert (AZ-305)
+
+---
+
+### Document 21: Helm Charts — Complete Guide (NEW)
+**Length:** 12,000+ words | **Time:** 50 minutes
+
+**Topics Covered:**
+- Helm architecture (v3) and core concepts (charts, releases, repositories)
+- Chart structure, Chart.yaml, and values.yaml
+- Go templating, built-in objects, and helper functions
+- Creating charts from scratch with `helm create`
+- Environment overrides with multiple values files
+- Chart dependencies and sub-charts
+- Helm repositories and OCI registries (ACR)
+- Complete commands reference (install, upgrade, rollback, template, lint, package)
+- Helm in Azure DevOps and GitHub Actions CI/CD
+- Best practices for chart design, values management, and security
+
+**Use When:**
+- Packaging Kubernetes manifests into reusable, versioned charts
+- Managing environment-specific configuration with values files
+- Setting up Helm-based CI/CD for AKS deployments
+- Rolling back releases instantly after a failed deployment
+
+---
+
+### Document 22: Docker & AKS Implementation Guide for .NET (NEW)
+**Length:** 10,000+ words | **Time:** 45 minutes
+
+**Topics Covered:**
+- Prerequisites checklist for tools and Azure access
+- Phase 1: Preparing a .NET app (health checks, port config, externalized config)
+- Phase 2: Writing a multi-stage Dockerfile, .dockerignore, local testing
+- Phase 3: Creating Azure infrastructure (Resource Group, ACR, AKS, Key Vault, Managed Identity)
+- Phase 4: Building and pushing images to ACR
+- Phase 5: Writing Kubernetes manifests (Namespace, ConfigMap, ServiceAccount, Deployment, Service, HPA)
+- Phase 6: Deploying to AKS and verifying
+- Phase 7: Optional Helm chart setup
+- Phase 8: CI/CD with Azure DevOps and GitHub Actions
+- Phase 9: Production hardening (security checklist, Ingress + TLS, cert-manager)
+- Phase 10: Monitoring with Container Insights and Application Insights
+- Quick-reference cheatsheet and troubleshooting playbook
+
+**Use When:**
+- A new requirement comes in to Dockerize and deploy a .NET application
+- Onboarding a new team member to the Docker + AKS workflow
+- Creating a repeatable process for any .NET project
+- Troubleshooting common deployment issues (ImagePullBackOff, CrashLoopBackOff, etc.)
+
+---
+
+### Document 23: Azure Service Bus & Messaging Patterns (NEW)
+**Length:** 8,000+ words | **Time:** 40 minutes
+
+**Topics Covered:**
+- Azure messaging overview — Storage Queue vs Service Bus vs Event Grid vs Event Hub
+- Service Bus queues (point-to-point), topics (pub/sub), and subscriptions with SQL filters
+- Advanced features — dead-letter queue (DLQ), sessions, scheduled messages, transactions
+- Event Grid system/custom topics, event subscriptions, and webhook delivery
+- Event Hub streaming, partitions, consumer groups, and Kafka compatibility
+- C# and Python SDK code examples with DefaultAzureCredential
+- Decision guide for choosing the right messaging service
+
+**Use When:**
+- Designing event-driven or message-based microservices architectures
+- Choosing between Service Bus, Event Grid, and Event Hub
+- Implementing reliable async communication between services
+- Building competing consumer patterns for horizontal scaling
+
+---
+
+### Document 24: Azure API Management — Complete Guide (NEW)
+**Length:** 8,000+ words | **Time:** 40 minutes
+
+**Topics Covered:**
+- APIM architecture (gateway, portal, developer portal) and pricing tiers
+- Importing APIs from OpenAPI/Swagger, Function Apps, and custom backends
+- Products, subscriptions, and subscription keys
+- Policies — rate limiting, CORS, caching, JWT validation, request/response transformation
+- OAuth 2.0 with Entra ID (validate-jwt policy)
+- API versioning (URL path, query, header) and revisions
+- Developer portal setup and customization
+- Monitoring and Application Insights integration
+
+**Use When:**
+- Setting up a centralized API gateway for your microservices
+- Implementing rate limiting, caching, or request transformation
+- Adding OAuth 2.0 security at the gateway layer
+- Creating a self-service developer portal for API consumers
+
+---
+
+### Document 25: Azure Container Apps — Complete Guide (NEW)
+**Length:** 8,000+ words | **Time:** 40 minutes
+
+**Topics Covered:**
+- Container Apps vs AKS vs ACI comparison and decision guide
+- Architecture — environments, revisions, replicas, and ingress
+- KEDA auto-scaling (HTTP, queue-based, cron, custom rules)
+- Dapr integration (service invocation, state management, pub/sub)
+- Traffic splitting for canary and blue/green deployments
+- Managed Identity and Key Vault secret references
+- Container Apps Jobs (manual, scheduled, event-driven)
+- CI/CD with GitHub Actions
+- Observability with Log Analytics and KQL
+
+**Use When:**
+- Running microservices without managing Kubernetes infrastructure
+- Needing scale-to-zero for cost optimization
+- Using event-driven architectures with queue-based scaling
+- Teams that want Dapr without managing Kubernetes
+
+---
+
+### Document 26: Docker Compose for Local Development (NEW)
+**Length:** 7,000+ words | **Time:** 35 minutes
+
+**Topics Covered:**
+- Docker Compose V2 syntax and compose.yaml reference
+- Multi-service .NET project setup with API, Worker, and shared libraries
+- Local database containers (SQL Server, PostgreSQL, MongoDB, Cosmos Emulator, Azurite)
+- Hot reload with docker compose watch and dotnet watch
+- Debugging in Visual Studio and VS Code
+- Container networking — service names as hostnames
+- Environment variables, .env files, and secrets management
+- Complete CLI commands reference
+
+**Use When:**
+- Setting up local development environments for multi-container applications
+- Running databases and Azure emulators locally without installing them on host
+- Onboarding new developers with a single `docker compose up` command
+- Matching local dev containers to production configurations
+
+---
+
+### Document 27: Entra External ID — Customer Identity Guide (NEW)
+**Length:** 7,000+ words | **Time:** 35 minutes
+
+**Topics Covered:**
+- Entra External ID vs Azure AD B2C vs Entra ID comparison
+- Setting up an External ID tenant and app registrations
+- User flows (sign-up, sign-in, profile edit, password reset)
+- Social identity providers (Google, Apple, Facebook, generic OIDC/SAML)
+- Custom authentication extensions with Azure Functions (token enrichment)
+- Token customization and custom claims
+- Branding and UI customization (CSS, HTML templates)
+- .NET and React integration with MSAL
+- Migration path from Azure AD B2C to Entra External ID
+
+**Use When:**
+- Building customer-facing applications with social login
+- Migrating from Azure AD B2C to the newer Entra External ID platform
+- Implementing self-service sign-up with custom branding
+- Adding custom claims from your database to JWT tokens
+
+---
+
+### Document 28: GitOps with Flux & ArgoCD on AKS (NEW)
+**Length:** 9,000+ words | **Time:** 45 minutes
+
+**Topics Covered:**
+- GitOps principles — Git as single source of truth, pull-based deployment
+- Push-based vs pull-based deployment comparison
+- Flux CD — AKS native GitOps extension, GitRepository, Kustomization, HelmRelease
+- ArgoCD — installation, Application CRD, ApplicationSet, web UI
+- Repository structure — mono-repo with Kustomize overlays for dev/staging/prod
+- Multi-environment promotion workflows (PR-based promotion)
+- Secrets management — SOPS + Azure Key Vault, External Secrets Operator
+- Image automation — auto-update image tags in Git from ACR
+- Monitoring and troubleshooting (flux CLI, argocd CLI)
+
+**Use When:**
+- Adopting GitOps for Kubernetes deployments (pull-based CI/CD)
+- Managing multi-environment deployments with Kustomize overlays
+- Eliminating kubectl access from CI pipelines (security improvement)
+- Implementing drift detection and self-healing for K8s clusters
+
+---
+
+### Document 29: Service Mesh on AKS — Istio & Linkerd (NEW)
+**Length:** 8,000+ words | **Time:** 40 minutes
+
+**Topics Covered:**
+- Service mesh concepts — control plane, data plane, sidecar proxies
+- When you do and don't need a service mesh (decision framework)
+- Istio vs Linkerd vs AKS Istio add-on comparison
+- Istio installation, profiles, and namespace injection
+- Traffic management — VirtualService, DestinationRule, canary routing
+- Fault injection and chaos testing
+- mTLS (mutual TLS) — STRICT mode, PeerAuthentication, AuthorizationPolicy
+- Observability — Kiali, Prometheus, Grafana, Jaeger distributed tracing
+- Linkerd — lightweight alternative, TrafficSplit, Viz dashboard
+- AKS managed Istio add-on (az aks mesh commands)
+
+**Use When:**
+- Implementing zero-trust security with mTLS between microservices
+- Needing advanced traffic management (canary, fault injection)
+- Adding observability to service-to-service communication without code changes
+- Evaluating Istio vs Linkerd for your AKS cluster
 
 ---
 
@@ -1188,17 +1423,17 @@ Follow Document 8 optimization
 ## DOCUMENT STATS
 
 ```
-Total Documents: 21
-Total Words: ~420,000
-Total Sections: 200+
-Code Examples: 600+
-Diagrams: 80+
-Commands: 500+
-Checklists: 20+
+Total Documents: 23
+Total Words: ~450,000
+Total Sections: 220+
+Code Examples: 650+
+Diagrams: 85+
+Commands: 550+
+Checklists: 22+
 
 Reading Time:
-- Quick read (all): 18-20 hours
-- Deep study (all): 5-7 days
+- Quick read (all): 20-22 hours
+- Deep study (all): 6-8 days
 - Reference lookups: 5-30 minutes each
 ```
 
@@ -1230,7 +1465,9 @@ Azure Learning/
 ├─ 17-AZURE-HA-AND-DR.md
 ├─ 18-AZURE-AI-AND-ML.md
 ├─ 19-AZURE-TERRAFORM-GUIDE.md
-└─ 20-AZURE-CERTIFICATIONS-GUIDE.md
+├─ 20-AZURE-CERTIFICATIONS-GUIDE.md
+├─ 21-HELM-CHARTS-COMPLETE-GUIDE.md
+└─ 22-DOCKER-AKS-DOTNET-STEP-BY-STEP.md
 ```
 
 ---
