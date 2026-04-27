@@ -4,11 +4,34 @@ Complete learning repository covering Azure cloud services, Docker, Kubernetes (
 
 **Total Documents:** 30 | **Total Content:** 550,000+ words
 
-## Quick Start
+## 🚀 Project Accelerator (Start Here!)
 
-Start with the [Master Index](Azure%20Learning/00-MASTER-INDEX.md) for a guided learning path.
+If you are starting a new .NET project and need to deploy to Azure, follow these **Step-by-Step Project Guides** in order. These are designed for beginner teams to go from zero to production.
 
-## Documents
+👉 **[BROWSE ALL PROJECT GUIDES](DotNet%20Project%20Guides/00-START-HERE.md)**
+
+| # | Project Guide | Focus |
+|---|---------------|-------|
+| 00 | [Start Here](DotNet%20Project%20Guides/00-START-HERE.md) | Roadmap, prerequisites, and team roles |
+| 01 | [Azure Setup](DotNet%20Project%20Guides/01-AZURE-SETUP-FOR-DOTNET-TEAMS.md) | Subscriptions, Resource Groups, and Permissions |
+| 02 | [Prepare .NET App](DotNet%20Project%20Guides/02-PREPARE-DOTNET-APP-FOR-CLOUD.md) | Health checks, Dockerfile, and Cloud Config |
+| 03 | [Deploy App Service](DotNet%20Project%20Guides/03-DEPLOY-TO-APP-SERVICE.md) | Step-by-step SQL + App Service + Key Vault |
+| 04 | [Deploy AKS](DotNet%20Project%20Guides/04-DEPLOY-TO-AKS-STEP-BY-STEP.md) | Step-by-step ACR + AKS + K8s Manifests |
+| 05 | [CI/CD Pipelines](DotNet%20Project%20Guides/05-CI-CD-PIPELINE-SETUP.md) | Automation with Azure DevOps & GitHub Actions |
+| 06 | [Monitoring](DotNet%20Project%20Guides/06-MONITORING-AND-DEBUGGING.md) | App Insights, Alerts, and Dashboarding |
+| 07 | [Security Checklist](DotNet%20Project%20Guides/07-SECURITY-CHECKLIST.md) | Managed Identity and Security Hardening |
+| 08 | [Cost Management](DotNet%20Project%20Guides/08-COST-MANAGEMENT-GUIDE.md) | Budgeting and Cloud Cost Optimization |
+| 09 | [Troubleshooting](DotNet%20Project%20Guides/09-TROUBLESHOOTING-PLAYBOOK.md) | Fixing common deployment & runtime errors |
+| 10 | [Commands Cheatsheet](DotNet%20Project%20Guides/10-COMMANDS-CHEATSHEET.md) | CLI reference for az, docker, and kubectl |
+| 11 | [Helm Charts](DotNet%20Project%20Guides/11-HELM-CHARTS-FOR-DOTNET.md) | Packaging AKS apps for multi-environment |
+| 12 | [DB Migrations](DotNet%20Project%20Guides/12-DATABASE-MIGRATIONS-EF-CORE.md) | Running EF Core Migrations in the Cloud |
+| 13 | [Service Bus](DotNet%20Project%20Guides/13-SERVICE-BUS-MESSAGING-DOTNET.md) | Async Messaging and Event-Driven .NET |
+
+---
+
+## Complete Reference Library
+
+The documents below provide deep-dive technical reference for each Azure service.
 
 | # | Document | Topics |
 |---|----------|--------|

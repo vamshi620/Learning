@@ -7,6 +7,13 @@
 
 ---
 
+## 🚀 NEW: Project Accelerator (Practical Guides)
+
+**If you have a new project to start, use these hands-on guides first:**
+The [DotNet Project Guides](../DotNet%20Project%20Guides/00-START-HERE.md) folder contains a step-by-step roadmap designed for beginner teams to deploy .NET applications directly to App Service and AKS with complete automation, security, and monitoring.
+
+---
+
 ## QUICK START GUIDE
 
 ### For First-Time Learners (Start Here)
