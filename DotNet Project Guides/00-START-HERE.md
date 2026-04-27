@@ -25,6 +25,7 @@ PHASE 2: PREPARE YOUR APP (Day 2-3)
 PHASE 3: DEPLOY (Day 4-7)
 ├── 03-DEPLOY-TO-APP-SERVICE.md            ← Deploy to Azure App Service (simpler)
 ├── 04-DEPLOY-TO-AKS-STEP-BY-STEP.md      ← Deploy to AKS with Docker (advanced)
+├── 11-HELM-CHARTS-FOR-DOTNET.md           ← Package AKS deployments with Helm
 │
 PHASE 4: AUTOMATE (Week 2)
 ├── 05-CI-CD-PIPELINE-SETUP.md             ← Automate builds and deployments
@@ -36,7 +37,8 @@ PHASE 5: OPERATE (Week 3+)
 │
 REFERENCE (Anytime)
 ├── 09-TROUBLESHOOTING-PLAYBOOK.md         ← Fix common issues fast
-└── 10-COMMANDS-CHEATSHEET.md              ← All commands on one page
+├── 10-COMMANDS-CHEATSHEET.md              ← All commands on one page
+└── 11-HELM-CHARTS-FOR-DOTNET.md           ← Helm chart creation & management
 ```
 
 ---
