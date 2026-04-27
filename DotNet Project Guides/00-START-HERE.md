@@ -29,16 +29,20 @@ PHASE 3: DEPLOY (Day 4-7)
 │
 PHASE 4: AUTOMATE (Week 2)
 ├── 05-CI-CD-PIPELINE-SETUP.md             ← Automate builds and deployments
+├── 12-DATABASE-MIGRATIONS-EF-CORE.md     ← Manage SQL changes in CI/CD
 │
 PHASE 5: OPERATE (Week 3+)
 ├── 06-MONITORING-AND-DEBUGGING.md         ← Monitor, alert, and debug in production
 ├── 07-SECURITY-CHECKLIST.md               ← Secure your apps and infrastructure
 ├── 08-COST-MANAGEMENT-GUIDE.md            ← Control and optimize Azure spending
+├── 13-SERVICE-BUS-MESSAGING-DOTNET.md     ← Add async messaging to your app
 │
 REFERENCE (Anytime)
 ├── 09-TROUBLESHOOTING-PLAYBOOK.md         ← Fix common issues fast
 ├── 10-COMMANDS-CHEATSHEET.md              ← All commands on one page
-└── 11-HELM-CHARTS-FOR-DOTNET.md           ← Helm chart creation & management
+├── 11-HELM-CHARTS-FOR-DOTNET.md           ← Helm chart creation & management
+├── 12-DATABASE-MIGRATIONS-EF-CORE.md     ← Database schema management
+└── 13-SERVICE-BUS-MESSAGING-DOTNET.md     ← Event-driven architecture guide
 ```
 
 ---

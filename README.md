@@ -4,11 +4,24 @@ Complete learning repository covering Azure cloud services, Docker, Kubernetes (
 
 **Total Documents:** 30 | **Total Content:** 550,000+ words
 
-## Quick Start
+## 🚀 Project Accelerator (Start Here!)
 
-Start with the [Master Index](Azure%20Learning/00-MASTER-INDEX.md) for a guided learning path.
+If you are starting a new .NET project and need to deploy to Azure, follow these **Step-by-Step Project Guides** in order. These are designed for beginner teams to go from zero to production.
 
-## Documents
+👉 **[BROWSE ALL PROJECT GUIDES](DotNet%20Project%20Guides/00-START-HERE.md)**
+
+1. [Azure Setup](DotNet%20Project%20Guides/01-AZURE-SETUP-FOR-DOTNET-TEAMS.md)
+2. [Prepare .NET App](DotNet%20Project%20Guides/02-PREPARE-DOTNET-APP-FOR-CLOUD.md)
+3. [Deploy to App Service](DotNet%20Project%20Guides/03-DEPLOY-TO-APP-SERVICE.md)
+4. [Deploy to AKS](DotNet%20Project%20Guides/04-DEPLOY-TO-AKS-STEP-BY-STEP.md)
+5. [CI/CD Pipelines](DotNet%20Project%20Guides/05-CI-CD-PIPELINE-SETUP.md)
+6. [Monitoring](DotNet%20Project%20Guides/06-MONITORING-AND-DEBUGGING.md)
+
+---
+
+## Complete Reference Library
+
+The documents below provide deep-dive technical reference for each Azure service.
 
 | # | Document | Topics |
 |---|----------|--------|
