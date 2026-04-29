@@ -714,3 +714,9 @@ You've completed the **Kafka .NET Handbook**. You now know:
 - [Azure Event Hubs for Kafka](https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview)
 - [Strimzi Kafka on Kubernetes](https://strimzi.io/documentation/)
 - [Designing Event-Driven Systems — O'Reilly (Free)](https://www.confluent.io/designing-event-driven-systems/)
+
+### Beyond Pub/Sub (Stream Processing)
+While this handbook covers the core of Kafka (Pub/Sub), the Kafka ecosystem includes powerful tools for **Stream Processing** (transforming, aggregating, and joining streams of data in real-time):
+- **Kafka Streams:** A Java/Scala library for building streaming applications.
+- **ksqlDB:** A database purpose-built for stream processing applications using SQL-like syntax.
+- **.NET Alternatives:** While Kafka Streams is Java-only, .NET developers often use raw consumers with LINQ, [Streamiz.Kafka.Net](https://lgouellec.github.io/kafka-streams-dotnet/), or process streams externally via Apache Flink or Apache Spark.

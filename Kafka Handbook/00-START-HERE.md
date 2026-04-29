@@ -34,6 +34,9 @@ This handbook is for **.NET developers** who are new to Apache Kafka and want to
 | `11-MASSTRANSIT-KAFKA.md` | MassTransit + Kafka in .NET | 🔴 Advanced |
 | `12-MONITORING-OBSERVABILITY.md` | Monitoring, Metrics & Alerting | 🔴 Advanced |
 | `13-REAL-WORLD-PROJECT.md` | Full Project: Order Processing System | 🔴 Advanced |
+| `14-KAFKA-SECURITY.md` | SASL, TLS, and ACLs in .NET | 🔴 Advanced |
+| `15-KAFKA-CONNECT.md` | Kafka Connect and Debezium CDC | 🟡 Intermediate |
+| `16-TESTING-KAFKA.md` | Unit & Integration Testing (Testcontainers) | 🟡 Intermediate |
 
 ---
 
@@ -51,12 +54,12 @@ This handbook is for **.NET developers** who are new to Apache Kafka and want to
 
 ### Path C — I'm going to Azure
 ```
-01 → 03 → 09 → 10 → 12
+01 → 03 → 09 → 10 → 12 → 14
 ```
 
 ### Path D — Full Project (Learn Everything)
 ```
-01 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10 → 11 → 12 → 13
+01 → 02 → 03 → 04 → 05 → 06 → 07 → 08 → 09 → 10 → 11 → 12 → 13 → 14 → 15 → 16
 ```
 
 ---
