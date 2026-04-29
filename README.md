@@ -29,6 +29,14 @@ If you are starting a new .NET project and need to deploy to Azure, follow these
 
 ---
 
+## 🏎️ Kafka .NET Handbook
+
+A zero-to-hero handbook for implementing Apache Kafka in .NET microservices. Covers fundamentals, Docker KRaft setup, `Confluent.Kafka`, advanced patterns (Outbox, Saga), MassTransit, and production deployments.
+
+👉 **[BROWSE KAFKA HANDBOOK](Kafka%20Handbook/00-START-HERE.md)**
+
+---
+
 ## Complete Reference Library
 
 The documents below provide deep-dive technical reference for each Azure service.
