@@ -37,6 +37,7 @@ Welcome to the **Zero-to-Hero Generative AI & AI Agents** handbook, updated for 
 | [`13-AI-MEMORY-PATTERNS.md`](./13-AI-MEMORY-PATTERNS.md) | AI Memory — Short-Term, Long-Term & Semantic Memory | 🔴 Advanced |
 | [`14-AI-SAFETY-EVALS.md`](./14-AI-SAFETY-EVALS.md) | AI Safety, Guardrails & Evaluation Frameworks | 🔴 Advanced |
 | [`15-DOTNET-AGENT-FRAMEWORK.md`](./15-DOTNET-AGENT-FRAMEWORK.md) | Microsoft Agent Framework: SK Agents, AutoGen.NET, Azure AI Foundry | 🔴 Advanced |
+| [`16-PROMPT-CHEAT-SHEET.md`](./16-PROMPT-CHEAT-SHEET.md) | 📎 Prompt Cheat Sheet — Copy-Paste Templates for Every Scenario | 🟢 Beginner |
 
 ---
 
