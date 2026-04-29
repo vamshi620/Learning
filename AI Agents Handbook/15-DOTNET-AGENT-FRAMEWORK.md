@@ -1,5 +1,7 @@
 # Generative AI & Agents
-## File 15: Microsoft Agent Framework — Semantic Kernel Agents, AutoGen.NET & Microsoft.Extensions.AI
+## File 15: Microsoft Agent Framework 1.0 GA — The Unified .NET AI Platform (April 2026)
+
+> **📅 April 3, 2026:** Microsoft announced the **General Availability of Microsoft Agent Framework v1.0** — the unified successor to both Semantic Kernel and AutoGen.NET. This is now the primary recommended SDK for building AI agents in .NET.
 
 ---
 
@@ -15,51 +17,53 @@
 
 ---
 
-## 1. The 2025 .NET AI Landscape — Know Your Layers
+## 1. The April 2026 .NET AI Landscape
 
-Microsoft reorganized the entire .NET AI ecosystem in 2024–2025. Understanding the layers is critical to choosing the right tool:
+On **April 3, 2026**, Microsoft announced the General Availability of the **Microsoft Agent Framework 1.0** — a single unified SDK combining Semantic Kernel (foundation layer) and AutoGen (multi-agent orchestration) into one production-ready, LTS-supported package.
+
+> **Migration Note:** Developers on legacy `Microsoft.SemanticKernel` or standalone `AutoGen` packages should plan migration to the new framework in 2026. SK continues to receive security patches but primary investment has moved to the unified framework.
 
 ```
 ┌────────────────────────────────────────────────────────────────┐
 │                    Your Application Code                       │
 ├────────────────────────────────────────────────────────────────┤
-│      Semantic Kernel / AutoGen.NET  (Agent Orchestration)      │
+│   Microsoft Agent Framework 1.0 (`Microsoft.Agents.AI`)        │
+│     (Graph-based multi-agent orchestration — via AutoGen)       │
+│     (Kernel, plugins, connectors — via Semantic Kernel)         │
+│     (MCP + A2A protocols natively supported)                   │
 ├────────────────────────────────────────────────────────────────┤
 │   Microsoft.Extensions.AI  (IChatClient / IEmbeddingGenerator) │
 ├────────────────────────────────────────────────────────────────┤
-│  Azure OpenAI SDK  |  OpenAI SDK  |  Ollama  |  GitHub Models │
+│  Azure AI Foundry SDK  |  OpenAI SDK  |  Ollama  |  Foundry Local │
 └────────────────────────────────────────────────────────────────┘
 ```
 
-| Library | Role | When to Use |
-|---------|------|------------|
-| `Microsoft.Extensions.AI` | Low-level abstraction (`IChatClient`) | All .NET apps — replaces vendor-specific SDKs |
-| `Microsoft.Extensions.VectorData` | Vector DB abstraction | RAG pipelines — swap vector DBs without code changes |
-| `Microsoft.SemanticKernel` | Agent orchestration, Plugins, Process Framework | Complex AI apps, multi-step workflows |
-| `Microsoft.AutoGen` | Multi-agent conversations (Actor model) | When agents need to talk to each other |
-| Azure AI Foundry Agent Service | Fully managed agents in the cloud | Production agents without infrastructure management |
+| Library | Status (April 2026) | Role |
+|---------|---------------------|------|
+| `Microsoft.Agents.AI` | ✅ GA v1.0 (LTS) | **Primary SDK** — unified SK + AutoGen |
+| `Microsoft.Extensions.AI` | ✅ Stable | Low-level IChatClient abstraction |
+| `Microsoft.Extensions.VectorData` | ✅ Stable | Vector DB abstraction |
+| `Microsoft.SemanticKernel` | ⚠️ Maintenance mode | Legacy (still supported, no new features) |
+| `AutoGen.*` packages | ⚠️ Deprecated | Replaced by `Microsoft.Agents.AI` |
 
 ---
 
-## 2. Microsoft.Extensions.AI — The Unified Abstraction
-
-This is the **most important addition to .NET in 2025**. It provides a single `IChatClient` interface so your code is not tied to any specific AI vendor.
-
-### Why it matters:
-- Write code against `IChatClient`.
-- Switch from Azure OpenAI → OpenAI → Ollama → GitHub Models without changing a single line of your application code.
-- Built-in middleware pipeline for logging, caching, retries, and telemetry.
-
-### NuGet Packages
+## 2. Getting Started with Microsoft Agent Framework 1.0
 
 ```powershell
-# Core abstraction (always install this)
+# The single primary package (replaces Microsoft.SemanticKernel + AutoGen)
+dotnet add package Microsoft.Agents.AI
+
+# Core abstraction layer (always install this too)
 dotnet add package Microsoft.Extensions.AI
 
-# Provider implementation — choose one or more:
-dotnet add package Microsoft.Extensions.AI.AzureAIInference   # Azure AI Foundry / Azure OpenAI
+# Provider implementation:
+dotnet add package Microsoft.Extensions.AI.AzureAIInference   # Azure AI Foundry
 dotnet add package Microsoft.Extensions.AI.OpenAI             # OpenAI direct
-dotnet add package Microsoft.Extensions.AI.Ollama             # Local models via Ollama
+dotnet add package Microsoft.Extensions.AI.Ollama             # Foundry Local / Ollama
+
+# Vector data abstraction:
+dotnet add package Microsoft.Extensions.VectorData
 ```
 
 ### IChatClient — The Universal Interface
@@ -376,12 +380,61 @@ builder.Services
 
 ---
 
-## 7. Azure AI Foundry Agent Service (Managed Agents)
+## 7. Azure AI Foundry Agent Service (April 2026 Updates)
 
-For production scenarios where you want Microsoft to manage the infrastructure, use the **Azure AI Foundry Agent Service** — the fully managed, cloud-native agent platform.
+Several major features shipped in April 2026:
+
+| Feature | Status | Description |
+|---------|--------|-------------|
+| **Hosted Agents** | Public Preview | Per-session sandboxes with filesystem persistence, scale-to-zero |
+| **Toolboxes** | Public Preview | Centrally manage and reuse tools across multiple agents |
+| **Managed Memory** | Public Preview | Built-in long-term memory integrated with Agent Framework 1.0 and LangGraph |
+| **BYO AI Gateway** | GA | Connect agents to models behind your own Azure API Management |
+| **Foundry Local** | GA | Run optimized models on local device GPU/NPU for hybrid scenarios |
+| **Foundry Toolkit for VS Code** | GA | Replaces "AI Toolkit for VS Code" |
+
+### Foundry Local — Run Models On Your Dev Machine
 
 ```powershell
-dotnet add package Azure.AI.Projects
+# Install Foundry Local CLI
+winget install Microsoft.FoundryLocal
+
+# Download and run Phi-4-Reasoning-Vision locally
+foundry model run phi-4-reasoning-vision
+
+# In your .NET code, point IChatClient at the local endpoint
+```
+
+```csharp
+// Switch to Foundry Local (zero cloud cost during development)
+builder.Services.AddOpenAIChatClient(
+    new Uri("http://localhost:5272/v1"),  // Foundry Local endpoint
+    apiKey: "not-needed-for-local",
+    modelId: "phi-4-reasoning-vision");
+// Everything else in your code stays the same!
+```
+
+### Managed Memory (Preview)
+
+No more provisioning Redis or Azure AI Search for agent memory. Azure now manages it:
+
+```csharp
+// With Azure AI Foundry managed memory:
+var agent = await agentsClient.CreateAgentAsync(
+    model: "gpt-5.4",
+    name: "MyAgent",
+    tools: new List<ToolDefinition>
+    {
+        new FileSearchToolDefinition(),
+        new CodeInterpreterToolDefinition()
+    },
+    // New April 2026: enable managed long-term memory
+    metadata: new Dictionary<string, string>
+    {
+        { "memory_enabled", "true" },
+        { "memory_scope", "user" }  // Per-user memory isolation
+    }
+);
 ```
 
 ```csharp

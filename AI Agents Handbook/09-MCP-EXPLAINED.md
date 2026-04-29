@@ -4,9 +4,10 @@
 ---
 
 ## What You'll Learn
-- What the Model Context Protocol (MCP) is.
-- Why Anthropic created it.
-- How it standardizes tool calling across different AI assistants (Claude Desktop, GitHub Copilot, Cursor).
+- What the Model Context Protocol (MCP) is and its April 2026 governance status.
+- The new **Agent-to-Agent (A2A) Protocol** and how it pairs with MCP.
+- How they standardize tool calling across different AI assistants (Claude, Copilot, Cursor, VS Code Agent Mode).
+- Setting up MCP servers in Claude Desktop and GitHub Copilot.
 
 **Time Required:** 30 minutes
 
@@ -22,11 +23,13 @@ Historically, you would have to rewrite the tool schema and integration logic fo
 
 ---
 
-## 2. Enter MCP
+## 2. Enter MCP — Now an Industry Standard (April 2026)
 
-The **Model Context Protocol (MCP)** is an open standard created by Anthropic (but adopted by Microsoft, GitHub, and others) to solve this problem.
+The **Model Context Protocol (MCP)** is an open standard now governed by the **Linux Foundation** (not just Anthropic). As of April 2026, it is supported by OpenAI, Microsoft, Google, Anthropic, and hundreds of community contributors.
 
-Think of MCP like **USB-C for AI Agents**.
+Think of MCP like **USB-C for AI Agents** — a universal connector between agents and tools.
+
+- **MCP 2026 focus areas:** Stateless Streamable HTTP transport (for hyperscale), SSO-integrated auth, enterprise audit trails, and `.well-known` discovery endpoints so agents can find MCP servers without hardcoded URLs.
 
 Instead of writing tools specifically for one app, you build an **MCP Server**.
 - The MCP Server exposes tools (Functions) and resources (Files, Databases).
@@ -44,11 +47,13 @@ A lightweight server (often written in TypeScript or Python) that securely conne
 - **File System MCP:** Allows an AI to read and write files on your local hard drive.
 
 ### The MCP Client
-The AI application the user interacts with. It maintains the connection to the LLM (like GPT-4 or Claude 3.5).
-*Examples of MCP Clients:*
+The AI application the user interacts with. It maintains the connection to the LLM.
+*Examples of MCP Clients in April 2026:*
 - Claude Desktop App
 - Cursor IDE
-- GitHub Copilot (via extensions)
+- GitHub Copilot (native MCP support in Agentic Mode)
+- VS Code Agent Mode
+- Microsoft Agent Framework (natively supports MCP for tool discovery)
 
 ### The Handshake
 1. The MCP Client connects to the MCP Server over `stdio` (standard input/output) or SSE (Server-Sent Events).
@@ -87,6 +92,53 @@ If you have the Claude Desktop App installed on Windows or Mac, you can connect 
 3. Restart Claude Desktop.
 4. You will see a "Hammer" icon in Claude indicating it is connected.
 5. You can now type: *"Look at my local sqlite database and tell me how many users signed up yesterday."* Claude will autonomously query your local database!
+
+---
+
+## 6. The A2A Protocol — Agent-to-Agent Communication (April 2026)
+
+MCP solves **agent-to-tool** communication (vertical). But what about **agent-to-agent** communication (horizontal)?
+
+The **Agent-to-Agent (A2A) Protocol** (v1.0, Linux Foundation, 2026) is the complementary standard that allows independent AI agents across different systems to collaborate as peers.
+
+| | MCP | A2A |
+|---|-----|-----|
+| **Direction** | Agent → Tool | Agent → Agent |
+| **Relationship** | Hierarchical (agent controls tool) | Peer-to-peer |
+| **Discovery** | Tool manifests | **Agent Cards** (capability advertisement) |
+| **Best For** | DB queries, file access, API calls | Task delegation, parallel agent workflows |
+
+### How A2A Works
+1. Each agent publishes an **Agent Card** — a JSON file describing its capabilities, input schema, and endpoint.
+2. A **Planner Agent** discovers specialist agents via their Agent Cards.
+3. The Planner delegates subtasks to specialist agents using the A2A protocol.
+4. Each specialist agent uses MCP internally to access the tools it needs.
+
+**The combined pattern (April 2026):**
+```
+User → Planner Agent (A2A) → DB Agent → MCP → Internal Database
+                          ↘ Email Agent → MCP → Graph/Outlook API
+                          ↘ Code Agent → MCP → GitHub Repo
+```
+
+### A2A in Microsoft Agent Framework 1.0
+```csharp
+// The Microsoft Agent Framework 1.0 natively supports A2A
+// Agents can advertise capabilities and accept delegated tasks
+
+[AgentCapability("code-review", "Reviews C# code for quality and security")]
+public class CodeReviewAgent : IAgentHandler
+{
+    public async Task<AgentResponse> HandleAsync(AgentTask task, AgentContext ctx)
+    {
+        // Process the delegated task
+        var code = task.GetInput<string>("code");
+        var review = await _chatClient.GetResponseAsync(
+            $"Review this C# code:\n{code}");
+        return AgentResponse.Success(review.Text);
+    }
+}
+```
 
 ---
 

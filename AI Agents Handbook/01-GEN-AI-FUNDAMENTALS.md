@@ -15,18 +15,20 @@
 
 ## 1. What is a Large Language Model (LLM)?
 
-At its core, a Large Language Model (like GPT-4.1, Claude 3.7 Sonnet, Gemini 2.5 Pro, or open-source Llama 3.3) is a massive mathematical function. It does not "think" or "know facts" like a database.
+At its core, a Large Language Model (like GPT-5.4, Claude Sonnet 4.6, or Gemini 3.1 Pro) is a massive mathematical function. It does not "think" or "know facts" like a database.
 
-> **2025 Model Landscape:**
+> **📅 April 2026 Model Landscape:**
 >
-> | Model | Provider | Context Window | Strength |
+> | Model | Provider | Context Window | Best For |
 > |-------|----------|---------------|----------|
-> | GPT-4.1 | Azure/OpenAI | 1M tokens | Long docs, coding, instruction following |
-> | GPT-4o / 4o-mini | Azure/OpenAI | 128K tokens | General purpose, balanced speed & cost |
-> | o1 / o3 / o4-mini | Azure/OpenAI | 200K tokens | Deep reasoning, math, complex code |
-> | Claude 3.7 Sonnet | Anthropic | 200K tokens | Extended thinking, coding, agents |
-> | Gemini 2.5 Pro | Google | 1M tokens | Multimodal, long-form reasoning |
-> | Llama 3.3 / Phi-4 | Meta/Microsoft | 128K/16K | Open-source, self-hosted via Ollama | 
+> | **GPT-5.4** (Pro / Thinking / Instant) | Azure / OpenAI | 256K–1M tokens | All-rounder, vision, computer-use, reasoning |
+> | **Claude Opus 4.6 / Sonnet 4.6** | Anthropic / Azure | 200K tokens | Coding (SWE-bench leader), agents, prose |
+> | **Gemini 3.1 Pro** | Google / Azure | 1M+ tokens | Multimodal, scientific reasoning, long docs |
+> | **o4-mini** | Azure / OpenAI | 200K tokens | Fast reasoning, math, cost-optimised |
+> | **Phi-4-Reasoning-Vision** | Microsoft (local/Azure) | 32K tokens | Edge/on-prem agents, visual reasoning |
+> | **Grok 4.20** | xAI | 128K tokens | Real-time data, coding benchmarks |
+>
+> *GPT-4o has been retired. GPT-4.1 and Claude 3.7 are now previous-generation models.* 
 
 Instead, it predicts the **next most likely token** based on the sequence of tokens that came before it.
 

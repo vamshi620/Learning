@@ -4,11 +4,12 @@
 ---
 
 ## What You'll Learn
-- How GitHub Copilot works inside your IDE.
+- How GitHub Copilot Agentic Mode (GA, April 2026) works inside your IDE.
+- The new autonomous Copilot Coding Agent — Issue-to-PR workflow.
 - Best practices for prompting Copilot for code.
-- Slash commands and context targeting.
+- Slash commands, context variables, and `.agent.md` customization.
 
-**Time Required:** 20 minutes
+**Time Required:** 30 minutes
 
 ---
 
@@ -56,12 +57,53 @@ Highlight your complex LINQ query, open Inline Chat (`Ctrl+I`), and type: `/expl
 
 You can explicitly force Copilot to read certain files or workspaces by using the `@` symbol in the Chat window.
 
-- `@workspace` — Tells Copilot to search across your entire repository, not just the open files. 
+- `@workspace` — Tells Copilot to search across your entire repository, not just the open files.
   - *Example:* `@workspace Where do we configure the database connection string?`
 - `@vscode` — Asks questions about the IDE itself.
-  - *Example:* `@vscode How do I change my theme to dark mode?`
 - `@terminal` — Tells Copilot to look at the last error output in your terminal.
-  - *Example:* `@terminal Why did my docker build fail?`
+- `@github` — **(New, 2026)** Searches across all your GitHub repositories, issues, and PRs.
+  - *Example:* `@github find recent PRs that changed the authentication middleware`
+
+---
+
+## 5. Agentic Mode & the Copilot Coding Agent (April 2026 GA)
+
+**Agentic Mode** is now Generally Available in VS Code, Visual Studio, and JetBrains IDEs. It is the biggest shift in how Copilot works.
+
+### What Agentic Mode Can Do
+- **Multi-file editing:** Copilot autonomously edits multiple related files in one request.
+- **Terminal command execution:** Copilot can run `dotnet build`, `git status`, and test runners.
+- **Self-healing:** If a test fails after a code change, Copilot reads the error and retries.
+- **Full Issue-to-PR workflow:** Assign a GitHub Issue to the Copilot agent. It will write the code, run tests, and open a Pull Request — completely autonomously.
+
+### Using Agentic Mode in VS Code
+1. Open Copilot Chat (`Ctrl+Alt+I`).
+2. Switch the dropdown from **Ask** to **Agent**.
+3. Type a high-level task: *"Add input validation to all POST endpoints in the Orders controller using `FluentValidation`."*
+4. Review the proposed file changes in the diff view. Approve or edit them.
+
+### `.agent.md` — Custom Agent Personas
+You can define a custom agent persona directly in your repository using a `.github/agents/` folder:
+
+```markdown
+<!-- .github/agents/contoso-api-reviewer.agent.md -->
+---
+name: Contoso API Reviewer
+description: Reviews .NET API code against Contoso's internal standards
+---
+
+You are an expert .NET 8 API code reviewer for Contoso Engineering.
+
+ALWAYS check for:
+1. FluentValidation on all DTO inputs
+2. Serilog structured logging on all exceptions
+3. EF Core async methods (never synchronous DB calls)
+4. Azure Managed Identity for all external connections
+
+Output findings as a Markdown table with columns: File | Line | Severity | Finding.
+```
+
+Now any developer can invoke this with `@contoso-api-reviewer` in the chat.
 
 ---
 

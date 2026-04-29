@@ -1,16 +1,19 @@
 # Generative AI & AI Agents Handbook
 ## File 00: Overview & Learning Path
 
-Welcome to the **Zero-to-Hero Generative AI & AI Agents** handbook! This guide is designed for developers who want to move beyond basic ChatGPT usage and learn how to build enterprise-grade AI applications, autonomous agents, and custom Copilot experiences.
+Welcome to the **Zero-to-Hero Generative AI & AI Agents** handbook, updated for **April 2026**. This guide is designed for developers who want to move beyond basic ChatGPT usage and learn how to build enterprise-grade AI applications, autonomous agents, and custom Copilot experiences.
 
-**Total Estimated Time:** 10-12 hours to complete all paths.
+**Total Estimated Time:** 12-15 hours to complete all paths.
 
-**Tech Stack Covered:**
-- **Cloud:** Azure AI Foundry (formerly AI Studio), Azure OpenAI, Azure AI Search
-- **.NET:** Microsoft.Extensions.AI, Semantic Kernel v1.x, AutoGen.NET, Azure AI Foundry Agent Service
-- **Python:** LangChain 0.3, LangGraph, LlamaIndex, FastAPI
-- **Models:** GPT-4.1, GPT-4o, Claude 3.7 Sonnet, Gemini 2.5 Pro, Phi-4 (local)
-- **Tools:** GitHub Copilot Extensions, MCP, Testcontainers, Azure Content Safety
+> **📅 Last Updated: April 2026**
+
+**Tech Stack Covered (April 2026):**
+- **Cloud:** Azure AI Foundry (ai.azure.com), Azure Foundry Agent Service, Azure AI Search, Foundry Local
+- **.NET:** Microsoft Agent Framework 1.0 GA (unified SK + AutoGen), Microsoft.Extensions.AI, Microsoft.Extensions.VectorData
+- **Python:** LangGraph (multi-agent), LangChain 0.3, LlamaIndex, FastAPI
+- **Models:** GPT-5.4, Claude Sonnet 4.6 / Opus 4.6, Gemini 3.1 Pro, Phi-4-Reasoning-Vision, o4-mini
+- **Protocols:** MCP (Model Context Protocol, Linux Foundation), A2A (Agent-to-Agent Protocol v1.0)
+- **Tools:** GitHub Copilot Agentic Mode (GA), Copilot Coding Agent, MCP in Copilot, Foundry Toolkit for VS Code
 
 ---
 
