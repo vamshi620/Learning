@@ -94,4 +94,26 @@ A zero-to-hero handbook for implementing Apache Kafka in .NET microservices. Cov
 | 15 | [Kafka Connect](Kafka%20Handbook/15-KAFKA-CONNECT.md) | Connect & Debezium CDC |
 | 16 | [Testing Kafka](Kafka%20Handbook/16-TESTING-KAFKA.md) | Unit & Integration Testing (Testcontainers) |
 
+---
+
+## 🤖 Generative AI & AI Agents Handbook
+
+A zero-to-hero handbook for building AI applications, autonomous agents, and custom Copilot extensions. Covers RAG, Azure OpenAI, Model Context Protocol (MCP), and agent development in .NET and Python.
+
+👉 **[BROWSE AI AGENTS HANDBOOK](AI%20Agents%20Handbook/00-START-HERE.md)**
+
+| # | AI Document | Focus |
+|---|-------------|-------|
+| 00 | [Start Here](AI%20Agents%20Handbook/00-START-HERE.md) | Overview & Learning Path |
+| 01 | [Gen AI Fundamentals](AI%20Agents%20Handbook/01-GEN-AI-FUNDAMENTALS.md) | LLMs, Tokens, Context Windows |
+| 02 | [RAG Concepts](AI%20Agents%20Handbook/02-RAG-CONCEPTS.md) | Embeddings & Vector DBs |
+| 03 | [Azure OpenAI Setup](AI%20Agents%20Handbook/03-AZURE-OPENAI-SETUP.md) | Provisioning & API Keys |
+| 04 | [AI Apps with .NET](AI%20Agents%20Handbook/04-AI-APPS-DOTNET.md) | Semantic Kernel & RAG |
+| 05 | [AI Apps with Python](AI%20Agents%20Handbook/05-AI-APPS-PYTHON.md) | LangChain & LlamaIndex |
+| 06 | [GitHub Copilot Basics](AI%20Agents%20Handbook/06-GITHUB-COPILOT-BASICS.md) | Best Practices & Commands |
+| 07 | [Copilot Custom Agents](AI%20Agents%20Handbook/07-COPILOT-CUSTOM-AGENTS.md) | Building Extensions in Python |
+| 08 | [Claude Agents & Skills](AI%20Agents%20Handbook/08-CLAUDE-AGENTS-SKILLS.md) | Tool Calling & Custom Skills |
+| 09 | [MCP Explained](AI%20Agents%20Handbook/09-MCP-EXPLAINED.md) | Model Context Protocol Setup |
+| 10 | [Azure AI Agents](AI%20Agents%20Handbook/10-AZURE-AI-AGENTS.md) | Autonomous ReAct Agents |
+
 
