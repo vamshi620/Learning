@@ -50,8 +50,9 @@ var order = JsonSerializer.Deserialize<OrderEvent>(result.Message.Value); // str
 ### 2.2 Custom JSON Serializer/Deserializer
 
 ```csharp
-// Reusable generic JSON serializer
-public class JsonSerializer<T> : ISerializer<T>
+// Reusable generic JSON serializer for Kafka
+// NOTE: Named KafkaJsonSerializer to avoid collision with System.Text.Json.JsonSerializer
+public class KafkaJsonSerializer<T> : ISerializer<T>
 {
     private static readonly JsonSerializerOptions Options = new()
     {
@@ -62,12 +63,12 @@ public class JsonSerializer<T> : ISerializer<T>
     public byte[] Serialize(T data, SerializationContext context)
     {
         if (data is null) return Array.Empty<byte>();
-        return JsonSerializer.SerializeToUtf8Bytes(data, Options);
+        return System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(data, Options);
     }
 }
 
-// Reusable generic JSON deserializer
-public class JsonDeserializer<T> : IDeserializer<T>
+// Reusable generic JSON deserializer for Kafka
+public class KafkaJsonDeserializer<T> : IDeserializer<T>
 {
     private static readonly JsonSerializerOptions Options = new()
     {
@@ -77,13 +78,13 @@ public class JsonDeserializer<T> : IDeserializer<T>
     public T Deserialize(ReadOnlySpan<byte> data, bool isNull, SerializationContext context)
     {
         if (isNull || data.IsEmpty) return default!;
-        return JsonSerializer.Deserialize<T>(data, Options)!;
+        return System.Text.Json.JsonSerializer.Deserialize<T>(data, Options)!;
     }
 }
 
 // Use in producer
 var producer = new ProducerBuilder<string, OrderEvent>(config)
-    .SetValueSerializer(new JsonSerializer<OrderEvent>())
+    .SetValueSerializer(new KafkaJsonSerializer<OrderEvent>())
     .Build();
 
 // Now you produce typed objects directly!
@@ -95,7 +96,7 @@ await producer.ProduceAsync("orders", new Message<string, OrderEvent>
 
 // Use in consumer
 var consumer = new ConsumerBuilder<string, OrderEvent>(config)
-    .SetValueDeserializer(new JsonDeserializer<OrderEvent>())
+    .SetValueDeserializer(new KafkaJsonDeserializer<OrderEvent>())
     .Build();
 
 var result = consumer.Consume(token);

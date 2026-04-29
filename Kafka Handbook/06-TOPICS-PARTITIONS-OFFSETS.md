@@ -121,17 +121,23 @@ ecommerce.orders.placed.v2            # New version alongside old
 
 ```powershell
 # Create a well-configured production topic
-docker exec kafka kafka-topics.sh \
-  --bootstrap-server localhost:9092 \
-  --create \
-  --topic ecommerce.orders.placed \
-  --partitions 6 \
-  --replication-factor 3 \
-  --config retention.ms=604800000 \    # 7 days
-  --config min.insync.replicas=2 \      # At least 2 replicas must acknowledge
-  --config max.message.bytes=1048576 \  # 1 MB max message size
-  --config cleanup.policy=delete \      # Delete old messages (vs compact)
-  --config compression.type=producer    # Use producer's compression setting
+# Configuration explanations:
+# retention.ms=604800000         (7 days)
+# min.insync.replicas=2          (At least 2 replicas must acknowledge)
+# max.message.bytes=1048576      (1 MB max message size)
+# cleanup.policy=delete          (Delete old messages vs compact)
+# compression.type=producer      (Use producer's compression setting)
+docker exec kafka kafka-topics.sh `
+  --bootstrap-server localhost:9092 `
+  --create `
+  --topic ecommerce.orders.placed `
+  --partitions 6 `
+  --replication-factor 3 `
+  --config retention.ms=604800000 `
+  --config min.insync.replicas=2 `
+  --config max.message.bytes=1048576 `
+  --config cleanup.policy=delete `
+  --config compression.type=producer
 ```
 
 ### Important Topic Configurations
@@ -174,15 +180,17 @@ Use cases:
 
 ```powershell
 # Create a compacted topic
-docker exec kafka kafka-topics.sh \
-  --bootstrap-server localhost:9092 \
-  --create \
-  --topic user.profiles \
-  --partitions 6 \
-  --replication-factor 1 \
-  --config cleanup.policy=compact \
-  --config min.cleanable.dirty.ratio=0.1 \   # Compact when 10% of log is "dirty"
-  --config segment.ms=3600000                # New segment every hour (triggers compaction)
+# min.cleanable.dirty.ratio=0.1: Compact when 10% of log is "dirty"
+# segment.ms=3600000: New segment every hour (triggers compaction)
+docker exec kafka kafka-topics.sh `
+  --bootstrap-server localhost:9092 `
+  --create `
+  --topic user.profiles `
+  --partitions 6 `
+  --replication-factor 1 `
+  --config cleanup.policy=compact `
+  --config min.cleanable.dirty.ratio=0.1 `
+  --config segment.ms=3600000
 
 # Delete a key (tombstone): publish message with null value
 # Kafka will keep the null-value record briefly, then remove the key entirely

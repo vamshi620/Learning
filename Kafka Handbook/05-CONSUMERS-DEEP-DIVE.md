@@ -419,21 +419,21 @@ Console.WriteLine("Rewound to 1 hour ago — replaying messages...");
 
 ```powershell
 # Reset consumer group to beginning (reprocess ALL messages)
-docker exec kafka kafka-consumer-groups.sh \
-  --bootstrap-server localhost:9092 \
-  --group order-service \
-  --topic orders \
-  --reset-offsets \
-  --to-earliest \
+docker exec kafka kafka-consumer-groups.sh `
+  --bootstrap-server localhost:9092 `
+  --group order-service `
+  --topic orders `
+  --reset-offsets `
+  --to-earliest `
   --execute
 
 # Reset to specific datetime
-docker exec kafka kafka-consumer-groups.sh \
-  --bootstrap-server localhost:9092 \
-  --group order-service \
-  --topic orders \
-  --reset-offsets \
-  --to-datetime 2024-06-01T00:00:00.000 \
+docker exec kafka kafka-consumer-groups.sh `
+  --bootstrap-server localhost:9092 `
+  --group order-service `
+  --topic orders `
+  --reset-offsets `
+  --to-datetime 2024-06-01T00:00:00.000 `
   --execute
 ```
 
@@ -442,37 +442,13 @@ docker exec kafka kafka-consumer-groups.sh \
 ## 7. Consumer Lag Monitoring
 
 ```csharp
-// Check lag programmatically
-public class ConsumerLagMonitor
-{
-    public async Task<Dictionary<string, long>> GetLagAsync(
-        string bootstrapServers, string groupId, string topic)
-    {
-        var adminConfig = new AdminClientConfig { BootstrapServers = bootstrapServers };
-        using var adminClient = new AdminClientBuilder(adminConfig).Build();
+// Checking lag programmatically requires using the AdminClient
+// to fetch consumer group committed offsets and comparing them 
+// against the topic partition's high watermark (end offset).
 
-        // Get committed offsets for the group
-        var groupOffsets = adminClient.ListConsumerGroupOffsets(
-            new[] { new ConsumerGroupTopicPartitions(groupId) });
-
-        // Get end offsets (latest position)
-        var topicMetadata = adminClient.GetMetadata(topic, TimeSpan.FromSeconds(10));
-        var partitions = topicMetadata.Topics.First(t => t.Topic == topic).Partitions;
-
-        var lag = new Dictionary<string, long>();
-
-        foreach (var partition in partitions)
-        {
-            var tp = new TopicPartition(topic, partition.PartitionId);
-            // Get log end offset
-            // Get consumer committed offset
-            // Lag = end - committed
-            // (simplified — in practice use watermarks)
-        }
-
-        return lag;
-    }
-}
+// 📌 Full Implementation:
+// See File [12-MONITORING-OBSERVABILITY.md](./12-MONITORING-OBSERVABILITY.md) 
+// for a complete, production-ready KafkaLagMonitor BackgroundService.
 ```
 
 ---

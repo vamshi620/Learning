@@ -151,47 +151,49 @@ docker exec kafka kafka-{tool}.sh --bootstrap-server localhost:9092 [options]
 
 ### 3.1 Topics
 
+> 💡 **Topic Naming Note:** In these early exercises, we use simple, flat names like `orders` or `audit-logs`. In later production-focused chapters, you'll see domain-based naming conventions like `orders.placed` or `inventory.reserved`. Both work, but domain-based naming is best practice for large systems.
+
 ```powershell
 # List all topics
-docker exec kafka kafka-topics.sh \
-  --bootstrap-server localhost:9092 \
+docker exec kafka kafka-topics.sh `
+  --bootstrap-server localhost:9092 `
   --list
 
 # Create a topic
-docker exec kafka kafka-topics.sh \
-  --bootstrap-server localhost:9092 \
-  --create \
-  --topic orders \
-  --partitions 3 \
+docker exec kafka kafka-topics.sh `
+  --bootstrap-server localhost:9092 `
+  --create `
+  --topic orders `
+  --partitions 3 `
   --replication-factor 1
 
 # Create with retention (7 days = 604800000 ms)
-docker exec kafka kafka-topics.sh \
-  --bootstrap-server localhost:9092 \
-  --create \
-  --topic audit-logs \
-  --partitions 6 \
-  --replication-factor 1 \
-  --config retention.ms=604800000 \
+docker exec kafka kafka-topics.sh `
+  --bootstrap-server localhost:9092 `
+  --create `
+  --topic audit-logs `
+  --partitions 6 `
+  --replication-factor 1 `
+  --config retention.ms=604800000 `
   --config cleanup.policy=delete
 
 # Describe a topic (see partitions, replication, config)
-docker exec kafka kafka-topics.sh \
-  --bootstrap-server localhost:9092 \
-  --describe \
+docker exec kafka kafka-topics.sh `
+  --bootstrap-server localhost:9092 `
+  --describe `
   --topic orders
 
 # Delete a topic
-docker exec kafka kafka-topics.sh \
-  --bootstrap-server localhost:9092 \
-  --delete \
+docker exec kafka kafka-topics.sh `
+  --bootstrap-server localhost:9092 `
+  --delete `
   --topic orders
 
 # Alter partition count (can only increase, never decrease!)
-docker exec kafka kafka-topics.sh \
-  --bootstrap-server localhost:9092 \
-  --alter \
-  --topic orders \
+docker exec kafka kafka-topics.sh `
+  --bootstrap-server localhost:9092 `
+  --alter `
+  --topic orders `
   --partitions 6
 ```
 
@@ -211,8 +213,8 @@ Topic: orders  Partition: 2  Leader: 1  Replicas: 1  Isr: 1
 
 ```powershell
 # Start an interactive producer
-docker exec -it kafka kafka-console-producer.sh \
-  --bootstrap-server localhost:9092 \
+docker exec -it kafka kafka-console-producer.sh `
+  --bootstrap-server localhost:9092 `
   --topic orders
 
 # Type messages line by line, press Enter to send:
@@ -221,10 +223,10 @@ docker exec -it kafka kafka-console-producer.sh \
 > Ctrl+C to exit
 
 # With keys (format: key:value using key.separator)
-docker exec -it kafka kafka-console-producer.sh \
-  --bootstrap-server localhost:9092 \
-  --topic orders \
-  --property "parse.key=true" \
+docker exec -it kafka kafka-console-producer.sh `
+  --bootstrap-server localhost:9092 `
+  --topic orders `
+  --property "parse.key=true" `
   --property "key.separator=:"
 
 # Type: key:value
@@ -235,31 +237,31 @@ docker exec -it kafka kafka-console-producer.sh \
 
 ```powershell
 # Read new messages (from now on)
-docker exec -it kafka kafka-console-consumer.sh \
-  --bootstrap-server localhost:9092 \
+docker exec -it kafka kafka-console-consumer.sh `
+  --bootstrap-server localhost:9092 `
   --topic orders
 
 # Read ALL messages from beginning
-docker exec -it kafka kafka-console-consumer.sh \
-  --bootstrap-server localhost:9092 \
-  --topic orders \
+docker exec -it kafka kafka-console-consumer.sh `
+  --bootstrap-server localhost:9092 `
+  --topic orders `
   --from-beginning
 
 # Read with keys and metadata shown
-docker exec -it kafka kafka-console-consumer.sh \
-  --bootstrap-server localhost:9092 \
-  --topic orders \
-  --from-beginning \
-  --property print.key=true \
-  --property print.partition=true \
-  --property print.offset=true \
+docker exec -it kafka kafka-console-consumer.sh `
+  --bootstrap-server localhost:9092 `
+  --topic orders `
+  --from-beginning `
+  --property print.key=true `
+  --property print.partition=true `
+  --property print.offset=true `
   --property print.timestamp=true
 
 # As part of a consumer group
-docker exec -it kafka kafka-console-consumer.sh \
-  --bootstrap-server localhost:9092 \
-  --topic orders \
-  --group my-consumer-group \
+docker exec -it kafka kafka-console-consumer.sh `
+  --bootstrap-server localhost:9092 `
+  --topic orders `
+  --group my-consumer-group `
   --from-beginning
 ```
 
@@ -267,32 +269,32 @@ docker exec -it kafka kafka-console-consumer.sh \
 
 ```powershell
 # List all consumer groups
-docker exec kafka kafka-consumer-groups.sh \
-  --bootstrap-server localhost:9092 \
+docker exec kafka kafka-consumer-groups.sh `
+  --bootstrap-server localhost:9092 `
   --list
 
 # Describe a group (see offsets and LAG)
-docker exec kafka kafka-consumer-groups.sh \
-  --bootstrap-server localhost:9092 \
-  --describe \
+docker exec kafka kafka-consumer-groups.sh `
+  --bootstrap-server localhost:9092 `
+  --describe `
   --group my-consumer-group
 
 # Reset offsets (reprocess from beginning)
-docker exec kafka kafka-consumer-groups.sh \
-  --bootstrap-server localhost:9092 \
-  --group my-consumer-group \
-  --topic orders \
-  --reset-offsets \
-  --to-earliest \
+docker exec kafka kafka-consumer-groups.sh `
+  --bootstrap-server localhost:9092 `
+  --group my-consumer-group `
+  --topic orders `
+  --reset-offsets `
+  --to-earliest `
   --execute
 
 # Reset offsets to specific time
-docker exec kafka kafka-consumer-groups.sh \
-  --bootstrap-server localhost:9092 \
-  --group my-consumer-group \
-  --topic orders \
-  --reset-offsets \
-  --to-datetime 2024-01-15T00:00:00.000 \
+docker exec kafka kafka-consumer-groups.sh `
+  --bootstrap-server localhost:9092 `
+  --group my-consumer-group `
+  --topic orders `
+  --reset-offsets `
+  --to-datetime 2024-01-15T00:00:00.000 `
   --execute
 ```
 

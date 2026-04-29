@@ -293,7 +293,7 @@ var config = new ConsumerConfig
     SessionTimeoutMs = 30000,
 
     // Heartbeat interval (should be 1/3 of session timeout)
-    HeartbeatIntervalMs = 3000,
+    HeartbeatIntervalMs = 10000,
 
     // Maximum records per poll
     MaxPollIntervalMs = 300000, // 5 minutes max to process a batch
@@ -446,6 +446,37 @@ Listening for orders... (Press Ctrl+C to stop)
 [P[1] O[0]] ✅ Order ORD-00001 processed
 [P[2] O[0]] 📦 Processing order: ORD-00002 | Customer: CUST-017 | Amount: $149.99 | Event: order.placed
 ...
+```
+
+---
+
+## 4.5. Configuration via appsettings.json
+
+So far, we hardcoded `localhost:9092` and the `GroupId`. In a real .NET application, you should use `appsettings.json` and the `IConfiguration` binder.
+
+**appsettings.json:**
+```json
+{
+  "Kafka": {
+    "BootstrapServers": "localhost:9092",
+    "GroupId": "order-processing-service",
+    "AutoOffsetReset": "Earliest",
+    "EnableAutoCommit": false
+  }
+}
+```
+
+**Binding in C#:**
+```csharp
+// Read config section
+var kafkaOptions = builder.Configuration.GetSection("Kafka");
+
+// Bind to strongly-typed ConsumerConfig
+var config = new ConsumerConfig();
+kafkaOptions.Bind(config);
+
+// Use it
+var consumer = new ConsumerBuilder<string, string>(config).Build();
 ```
 
 ---

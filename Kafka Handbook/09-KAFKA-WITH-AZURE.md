@@ -293,7 +293,7 @@ For full control over Kafka (features, configuration, cost), run Kafka on AKS us
 
 ### Deploy Strimzi Kafka Operator
 
-```bash
+```powershell
 # Create namespace
 kubectl create namespace kafka
 
@@ -301,8 +301,8 @@ kubectl create namespace kafka
 helm repo add strimzi https://strimzi.io/charts/
 helm repo update
 
-helm install strimzi-operator strimzi/strimzi-kafka-operator \
-  --namespace kafka \
+helm install strimzi-operator strimzi/strimzi-kafka-operator `
+  --namespace kafka `
   --set watchNamespaces="{kafka}"
 ```
 

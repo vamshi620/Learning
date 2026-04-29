@@ -119,23 +119,23 @@ Producer → [Topic/Log] → Consumer A (reads at its own pace)
 
 If you just want to see Kafka working immediately:
 
-```bash
+```powershell
 # 1. Start Kafka with Docker
-docker run -d --name kafka \
-  -p 9092:9092 \
-  -e KAFKA_ENABLE_KRAFT=yes \
-  -e KAFKA_CFG_NODE_ID=1 \
-  -e KAFKA_CFG_PROCESS_ROLES=broker,controller \
-  -e KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 \
-  -e KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 \
-  -e KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@localhost:9093 \
-  -e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER \
+docker run -d --name kafka `
+  -p 9092:9092 `
+  -e KAFKA_ENABLE_KRAFT=yes `
+  -e KAFKA_CFG_NODE_ID=1 `
+  -e KAFKA_CFG_PROCESS_ROLES=broker,controller `
+  -e KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 `
+  -e KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 `
+  -e KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@localhost:9093 `
+  -e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER `
   bitnami/kafka:latest
 
 # 2. Create a topic
-docker exec kafka kafka-topics.sh \
-  --create --topic my-first-topic \
-  --bootstrap-server localhost:9092 \
+docker exec kafka kafka-topics.sh `
+  --create --topic my-first-topic `
+  --bootstrap-server localhost:9092 `
   --partitions 3 --replication-factor 1
 
 # 3. Then go to File 03 for your first .NET producer/consumer

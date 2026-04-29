@@ -306,7 +306,7 @@ public class KafkaProducer<TKey, TValue> : IKafkaProducer<TKey, TValue>, IDispos
     {
         _logger = logger;
         _producer = new ProducerBuilder<TKey, TValue>(config)
-            .SetValueSerializer(new JsonSerializer<TValue>())
+            .SetValueSerializer(new KafkaJsonSerializer<TValue>())
             .SetErrorHandler((_, e) => _logger.LogError("Kafka error: {Reason}", e.Reason))
             .Build();
     }
@@ -355,10 +355,11 @@ public class KafkaProducer<TKey, TValue> : IKafkaProducer<TKey, TValue>, IDispos
 }
 
 // Custom JSON serializer for Kafka
-public class JsonSerializer<T> : ISerializer<T>
+// NOTE: Named KafkaJsonSerializer to avoid collision with System.Text.Json.JsonSerializer
+public class KafkaJsonSerializer<T> : ISerializer<T>
 {
     public byte[] Serialize(T data, SerializationContext context)
-        => JsonSerializer.SerializeToUtf8Bytes(data);
+        => System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(data);
 }
 ```
 
@@ -405,82 +406,25 @@ If the DB write succeeds but Kafka fails, you have an inconsistent state.
 
 **Solution: The Outbox Pattern**
 
-```csharp
-// 1. Instead of producing directly, write to an "outbox" table in your DB
-// within the SAME database transaction as your business entity
+```
+Normal (risky):
+1. Save order to DB           ✅
+2. Publish event to Kafka      ❌ ← Kafka down? Event lost!
 
-public class OrderService
-{
-    private readonly AppDbContext _db;
+Outbox Pattern (safe):
+1. Save order to DB            }
+2. Save event to Outbox table  } ← SAME database transaction (atomic!)
+3. Background relay reads Outbox → publishes to Kafka
+4. Marks Outbox row as "sent"
 
-    public async Task PlaceOrderAsync(CreateOrderCommand command)
-    {
-        using var transaction = await _db.Database.BeginTransactionAsync();
-        try
-        {
-            // Save order to Orders table
-            var order = new Order { Id = Guid.NewGuid(), ... };
-            _db.Orders.Add(order);
-
-            // Save to Outbox table in SAME transaction
-            var outboxMessage = new OutboxMessage
-            {
-                Id = Guid.NewGuid(),
-                Topic = "orders",
-                Key = order.Id.ToString(),
-                Value = JsonSerializer.Serialize(new OrderPlacedEvent(order)),
-                CreatedAt = DateTime.UtcNow,
-                Status = "pending"
-            };
-            _db.OutboxMessages.Add(outboxMessage);
-
-            await _db.SaveChangesAsync(); // Both or neither!
-            await transaction.CommitAsync();
-        }
-        catch
-        {
-            await transaction.RollbackAsync();
-            throw;
-        }
-    }
-}
-
-// 2. Outbox Relay: polls the outbox table and produces to Kafka
-public class OutboxRelayService : BackgroundService
-{
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-    {
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            var pendingMessages = await _db.OutboxMessages
-                .Where(m => m.Status == "pending")
-                .OrderBy(m => m.CreatedAt)
-                .Take(100)
-                .ToListAsync(stoppingToken);
-
-            foreach (var outbox in pendingMessages)
-            {
-                try
-                {
-                    await _producer.ProduceAsync(outbox.Topic, outbox.Key, outbox.Value);
-                    outbox.Status = "sent";
-                    outbox.SentAt = DateTime.UtcNow;
-                }
-                catch (Exception ex)
-                {
-                    outbox.Status = "failed";
-                    outbox.Error = ex.Message;
-                }
-            }
-
-            await _db.SaveChangesAsync(stoppingToken);
-            await Task.Delay(1000, stoppingToken); // Poll every second
-        }
-    }
-}
+Result: If DB write succeeds, the event WILL eventually reach Kafka.
 ```
 
-> 💡 **Pro Tip:** Libraries like **MassTransit** (covered in File 11) implement the outbox pattern for you. Use them in production rather than building your own.
+The key idea: instead of producing to Kafka directly, you write the message into an `OutboxMessages` table **inside the same DB transaction** as your business entity. A background relay service then picks up pending messages and publishes them to Kafka.
+
+> 📌 **Full implementation:** See [10-ADVANCED-PATTERNS.md](./10-ADVANCED-PATTERNS.md) (Section 5) for the complete Outbox implementation with EF Core, retry counts, and status tracking.
+
+> 💡 **Pro Tip:** Libraries like **MassTransit** (covered in [File 11](./11-MASSTRANSIT-KAFKA.md)) implement the outbox pattern for you with `AddEntityFrameworkOutbox`. Use them in production rather than building your own.
 
 ---
 
