@@ -29,35 +29,7 @@ If you are starting a new .NET project and need to deploy to Azure, follow these
 
 ---
 
-## 🏎️ Kafka .NET Handbook
-
-A zero-to-hero handbook for implementing Apache Kafka in .NET microservices. Covers fundamentals, Docker KRaft setup, `Confluent.Kafka`, advanced patterns (Outbox, Saga), MassTransit, and production deployments.
-
-👉 **[BROWSE KAFKA HANDBOOK](Kafka%20Handbook/00-START-HERE.md)**
-
-| # | Kafka Document | Focus |
-|---|----------------|-------|
-| 00 | [Start Here](Kafka%20Handbook/00-START-HERE.md) | Overview & Learning Path |
-| 01 | [Fundamentals](Kafka%20Handbook/01-KAFKA-FUNDAMENTALS.md) | Core Concepts & Architecture |
-| 02 | [Local Setup](Kafka%20Handbook/02-KAFKA-SETUP.md) | Docker KRaft, CLI & First Topic |
-| 03 | [.NET Basics](Kafka%20Handbook/03-DOTNET-KAFKA-BASICS.md) | First .NET Producer & Consumer |
-| 04 | [Producers Deep Dive](Kafka%20Handbook/04-PRODUCERS-DEEP-DIVE.md) | Advanced Producer Patterns in .NET |
-| 05 | [Consumers Deep Dive](Kafka%20Handbook/05-CONSUMERS-DEEP-DIVE.md) | Advanced Consumer Patterns & Groups |
-| 06 | [Topics & Partitions](Kafka%20Handbook/06-TOPICS-PARTITIONS-OFFSETS.md) | Topics, Partitions, Offsets Deep Dive |
-| 07 | [Serialization](Kafka%20Handbook/07-SERIALIZATION.md) | JSON, Avro & Protobuf in .NET |
-| 08 | [Error Handling](Kafka%20Handbook/08-ERROR-HANDLING.md) | Retry, DLQ & Error Patterns |
-| 09 | [Kafka with Azure](Kafka%20Handbook/09-KAFKA-WITH-AZURE.md) | Azure Event Hubs & AKS Deployment |
-| 10 | [Advanced Patterns](Kafka%20Handbook/10-ADVANCED-PATTERNS.md) | CQRS, Saga, Outbox Pattern |
-| 11 | [MassTransit + Kafka](Kafka%20Handbook/11-MASSTRANSIT-KAFKA.md) | MassTransit Abstraction over Kafka |
-| 12 | [Monitoring](Kafka%20Handbook/12-MONITORING-OBSERVABILITY.md) | Monitoring, Metrics & Alerting |
-| 13 | [Real-World Project](Kafka%20Handbook/13-REAL-WORLD-PROJECT.md) | Full Order Processing System |
-| 14 | [Security](Kafka%20Handbook/14-KAFKA-SECURITY.md) | SASL, TLS, and ACLs in .NET |
-| 15 | [Kafka Connect](Kafka%20Handbook/15-KAFKA-CONNECT.md) | Connect & Debezium CDC |
-| 16 | [Testing Kafka](Kafka%20Handbook/16-TESTING-KAFKA.md) | Unit & Integration Testing (Testcontainers) |
-
----
-
-## Complete Reference Library
+## Complete AZure Reference Library
 
 The documents below provide deep-dive technical reference for each Azure service.
 
@@ -93,3 +65,33 @@ The documents below provide deep-dive technical reference for each Azure service
 | 27 | [Entra External ID](Azure%20Learning/27-ENTRA-EXTERNAL-ID-CUSTOMER-IDENTITY.md) | Social logins, B2C, customer identity (**NEW**) |
 | 28 | [GitOps (Flux & ArgoCD)](Azure%20Learning/28-GITOPS-FLUX-ARGOCD-ON-AKS.md) | Pull-based deploy, Kustomize, secrets (**NEW**) |
 | 29 | [Service Mesh](Azure%20Learning/29-SERVICE-MESH-ISTIO-LINKERD-AKS.md) | Istio, Linkerd, mTLS, traffic mgmt (**NEW**) |
+
+---
+
+## 🏎️ Kafka .NET Handbook
+
+A zero-to-hero handbook for implementing Apache Kafka in .NET microservices. Covers fundamentals, Docker KRaft setup, `Confluent.Kafka`, advanced patterns (Outbox, Saga), MassTransit, and production deployments.
+
+👉 **[BROWSE KAFKA HANDBOOK](Kafka%20Handbook/00-START-HERE.md)**
+
+| # | Kafka Document | Focus |
+|---|----------------|-------|
+| 00 | [Start Here](Kafka%20Handbook/00-START-HERE.md) | Overview & Learning Path |
+| 01 | [Fundamentals](Kafka%20Handbook/01-KAFKA-FUNDAMENTALS.md) | Core Concepts & Architecture |
+| 02 | [Local Setup](Kafka%20Handbook/02-KAFKA-SETUP.md) | Docker KRaft, CLI & First Topic |
+| 03 | [.NET Basics](Kafka%20Handbook/03-DOTNET-KAFKA-BASICS.md) | First .NET Producer & Consumer |
+| 04 | [Producers Deep Dive](Kafka%20Handbook/04-PRODUCERS-DEEP-DIVE.md) | Advanced Producer Patterns in .NET |
+| 05 | [Consumers Deep Dive](Kafka%20Handbook/05-CONSUMERS-DEEP-DIVE.md) | Advanced Consumer Patterns & Groups |
+| 06 | [Topics & Partitions](Kafka%20Handbook/06-TOPICS-PARTITIONS-OFFSETS.md) | Topics, Partitions, Offsets Deep Dive |
+| 07 | [Serialization](Kafka%20Handbook/07-SERIALIZATION.md) | JSON, Avro & Protobuf in .NET |
+| 08 | [Error Handling](Kafka%20Handbook/08-ERROR-HANDLING.md) | Retry, DLQ & Error Patterns |
+| 09 | [Kafka with Azure](Kafka%20Handbook/09-KAFKA-WITH-AZURE.md) | Azure Event Hubs & AKS Deployment |
+| 10 | [Advanced Patterns](Kafka%20Handbook/10-ADVANCED-PATTERNS.md) | CQRS, Saga, Outbox Pattern |
+| 11 | [MassTransit + Kafka](Kafka%20Handbook/11-MASSTRANSIT-KAFKA.md) | MassTransit Abstraction over Kafka |
+| 12 | [Monitoring](Kafka%20Handbook/12-MONITORING-OBSERVABILITY.md) | Monitoring, Metrics & Alerting |
+| 13 | [Real-World Project](Kafka%20Handbook/13-REAL-WORLD-PROJECT.md) | Full Order Processing System |
+| 14 | [Security](Kafka%20Handbook/14-KAFKA-SECURITY.md) | SASL, TLS, and ACLs in .NET |
+| 15 | [Kafka Connect](Kafka%20Handbook/15-KAFKA-CONNECT.md) | Connect & Debezium CDC |
+| 16 | [Testing Kafka](Kafka%20Handbook/16-TESTING-KAFKA.md) | Unit & Integration Testing (Testcontainers) |
+
+
