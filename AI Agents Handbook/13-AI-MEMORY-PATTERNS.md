@@ -6,10 +6,12 @@
 ## What You'll Learn
 - Why AI agents need explicit memory management.
 - The 4 types of AI memory and when to use each.
-- How to implement memory in .NET (Semantic Kernel) and Python (LangChain).
-- Building a persistent memory system with Azure AI Search.
+- How to implement memory in .NET (Microsoft Agent Framework 1.0) and Python (LangGraph).
+- Building a persistent memory system with Azure AI Search or Azure AI Foundry Managed Memory.
 
 **Time Required:** 45 minutes
+
+> **📅 Updated: April 2026** — Added Azure AI Foundry **Managed Memory** (Public Preview) which eliminates the need to provision Redis or Azure AI Search for agent memory.
 
 ---
 
@@ -169,49 +171,107 @@ relevant_memories = memory.load_memory_variables(
 
 ---
 
-## 7. Memory in .NET (Semantic Kernel)
+## 7. Memory in .NET (Microsoft Agent Framework 1.0, April 2026)
 
-Semantic Kernel has a built-in `ISemanticTextMemory` abstraction.
+> **April 2026:** The `ISemanticTextMemory` abstraction from Semantic Kernel is now available through the unified `Microsoft.Agents.AI` package with `Microsoft.Extensions.VectorData`.
 
 ```csharp
-using Microsoft.SemanticKernel.Memory;
-using Microsoft.SemanticKernel.Connectors.AzureAISearch;
+using Microsoft.Extensions.VectorData;
+using Microsoft.Agents.AI;
 
-// 1. Configure the memory store with Azure AI Search
-var memoryStore = new AzureAISearchMemoryStore(
-    endpoint: "https://your-search.search.windows.net",
-    apiKey: "your-search-admin-key"
-);
-
-// 2. Build the semantic memory with an embedding model
-var memory = new MemoryBuilder()
-    .WithAzureOpenAITextEmbeddingGeneration(
-        deploymentName: "text-embedding-ada-002",
-        endpoint: endpoint,
-        credential: new DefaultAzureCredential())
-    .WithMemoryStore(memoryStore)
-    .Build();
-
-// 3. Save a memory
-await memory.SaveInformationAsync(
-    collection: "user-preferences",
-    id: "vamshi_001",
-    text: "Vamshi prefers Kubernetes deployments and uses .NET 8 with Entity Framework Core.",
-    description: "User profile for Vamshi"
-);
-
-// 4. Search for relevant memories
-var results = memory.SearchAsync(
-    collection: "user-preferences",
-    query: "How does this user like to deploy applications?",
-    limit: 3,
-    minRelevanceScore: 0.7
-);
-
-await foreach (var result in results)
+// 1. Get the vector store from DI (registered in Program.cs)
+public class AgentMemoryService(
+    IVectorStore vectorStore,
+    IEmbeddingGenerator<string, Embedding<float>> embeddingGenerator)
 {
-    Console.WriteLine($"Memory: {result.Metadata.Text} (Relevance: {result.Relevance:P0})");
+    private readonly string _collection = "user-memory";
+
+    public async Task SaveMemoryAsync(string userId, string fact)
+    {
+        var collection = vectorStore.GetCollection<string, MemoryRecord>(_collection);
+        await collection.EnsureCollectionExistsAsync();
+
+        var embedding = await embeddingGenerator.GenerateEmbeddingVectorAsync(fact);
+        await collection.UpsertAsync(new MemoryRecord
+        {
+            Id = $"{userId}_{Guid.NewGuid()}",
+            Content = fact,
+            UserId = userId,
+            Embedding = embedding,
+            Timestamp = DateTimeOffset.UtcNow
+        });
+    }
+
+    public async Task<IList<string>> RecallAsync(string userId, string query)
+    {
+        var collection = vectorStore.GetCollection<string, MemoryRecord>(_collection);
+        var queryEmbedding = await embeddingGenerator.GenerateEmbeddingVectorAsync(query);
+
+        var results = collection.SearchAsync(queryEmbedding, top: 5,
+            new VectorSearchOptions<MemoryRecord>
+            {
+                Filter = r => r.UserId == userId  // Per-user isolation
+            });
+
+        var memories = new List<string>();
+        await foreach (var result in results)
+            memories.Add(result.Record.Content);
+        return memories;
+    }
 }
+
+public class MemoryRecord
+{
+    [VectorStoreKey] public string Id { get; set; } = "";
+    [VectorStoreData] public string Content { get; set; } = "";
+    [VectorStoreData] public string UserId { get; set; } = "";
+    [VectorStoreData] public DateTimeOffset Timestamp { get; set; }
+    [VectorStoreVector(Dimensions: 1536)] public ReadOnlyMemory<float> Embedding { get; set; }
+}
+```
+
+---
+
+## 8. Azure AI Foundry Managed Memory (Public Preview, April 2026)
+
+The biggest memory management update of 2026: **you no longer need to provision your own Redis or Azure AI Search** for agent memory. Azure AI Foundry now provides fully managed long-term memory as a first-class feature.
+
+```csharp
+// Program.cs — Enable Foundry Managed Memory when creating the agent
+var agentsClient = projectClient.GetAgentsClient();
+
+var agent = await agentsClient.CreateAgentAsync(
+    model: "gpt-5-4-prod",
+    name: "MemoryEnabledAssistant",
+    instructions: "You are a personalized developer assistant. Remember user preferences.",
+    metadata: new Dictionary<string, string>
+    {
+        { "memory_enabled", "true" },
+        { "memory_scope", "user" }      // Options: "user", "thread", "global"
+    }
+);
+
+// From now on, the agent automatically stores and retrieves memories.
+// No Redis. No Azure AI Search index. No vector store configuration.
+```
+
+**Python equivalent:**
+```python
+from azure.ai.projects import AIProjectClient
+from azure.identity import DefaultAzureCredential
+
+client = AIProjectClient.from_connection_string(
+    conn_str=os.environ["AZURE_AI_PROJECT_CONNECTION_STRING"],
+    credential=DefaultAzureCredential()
+)
+agents = client.agents
+
+agent = agents.create_agent(
+    model="gpt-5.4",
+    name="PersonalizedAssistant",
+    instructions="Remember the user's preferences and past projects.",
+    metadata={"memory_enabled": "true", "memory_scope": "user"}
+)
 ```
 
 ---

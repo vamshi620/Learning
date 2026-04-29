@@ -4,19 +4,45 @@
 ---
 
 ## What You'll Learn
-- What GitHub Copilot Extensions / Custom Agents are.
-- How to create an agent that responds to `@my-company`.
-- Setting up a Python backend for your agent.
+- The two approaches to Copilot customization in April 2026: **`.agent.md` files** (lightweight) vs. **Copilot Extensions** (full backend).
+- How to create a full custom backend agent that responds to `@my-company`.
+- Setting up a Python backend and connecting it to GitHub.
 
 **Time Required:** 45 minutes
 
+> **📅 Updated: April 2026** — New lightweight option: define agents directly in `.github/agents/*.agent.md` without any backend server!
+
 ---
 
-## 1. What is a Custom Copilot Agent?
+## 1. Two Approaches to Custom Copilot Agents (April 2026)
 
-While GitHub Copilot is great at writing general code, it doesn't know your company's specific internal APIs, proprietary deployment processes, or highly custom frameworks.
+GitHub Copilot now offers two paths depending on your needs:
 
-A **Custom Copilot Agent** allows you to create your own bot that integrates directly into the GitHub Copilot Chat window. Users can type `@contoso-bot deploy this app` and your custom Python backend will process the request.
+| Approach | Effort | Best For |
+|----------|--------|----------|
+| **`.agent.md` files** (New, 2026) | Minutes | Custom personas, coding standards, team workflows — no backend needed |
+| **Copilot Extensions (Backend API)** | Hours | Real-time data, internal databases, tool execution, streaming results |
+
+### Option A: `.agent.md` Files (Zero Infrastructure)
+
+Create a file at `.github/agents/your-agent.agent.md` in your repository:
+
+```markdown
+---
+name: Contoso .NET Reviewer
+description: Reviews C# code against Contoso's internal standards
+---
+
+You are a senior .NET 9 code reviewer for Contoso Engineering.
+ALWAYS enforce: FluentValidation, async EF Core, Managed Identity.
+Format findings as: File | Line | Severity | Issue.
+```
+
+Invoke it in Copilot Chat with `@Contoso .NET Reviewer review the OrderController.cs`. No server, no deployment — done!
+
+---
+
+## 2. Option B: Full Custom Copilot Extension (Backend API)
 
 ---
 
@@ -33,43 +59,40 @@ A Custom Agent is simply a web API (usually built in Python with FastAPI) that c
 
 ---
 
-## 3. Building the Agent Backend (Python + FastAPI)
+## 3. Building the Agent Backend (Python + FastAPI, April 2026)
 
-Here is the foundational code to build a Custom Agent using Python and FastAPI.
+Here is the foundational code using the updated April 2026 patterns:
 
 ### Prerequisites
 ```bash
-pip install fastapi uvicorn sse-starlette openai pydantic
+pip install fastapi uvicorn openai python-dotenv
 ```
 
 ### The API Implementation (`main.py`)
 
 ```python
 from fastapi import FastAPI, Request
-from sse_starlette.sse import EventSourceResponse
+from fastapi.responses import StreamingResponse
 from openai import AsyncAzureOpenAI
-import json
-import os
+import json, os
+from dotenv import load_dotenv
 
+load_dotenv()
 app = FastAPI()
 
-# Initialize Azure OpenAI Client
+# April 2026: use gpt-5.4 or claude-sonnet-4-6 via Azure AI Foundry MaaS
 client = AsyncAzureOpenAI(
-    api_key=os.environ.get("AZURE_OPENAI_API_KEY"),
-    api_version="2024-02-15-preview",
-    azure_endpoint=os.environ.get("AZURE_OPENAI_ENDPOINT")
+    api_key=os.environ.get("AZURE_AI_API_KEY"),
+    api_version="2025-01-01-preview",
+    azure_endpoint=os.environ.get("AZURE_AI_ENDPOINT")  # new Foundry Hub endpoint
 )
-DEPLOYMENT_NAME = "gpt-4o"
+DEPLOYMENT_NAME = "gpt-5-4-prod"  # or "claude-sonnet-4-6"
 
 @app.post("/")
 async def handle_copilot_request(request: Request):
-    """
-    GitHub Copilot sends a POST request here when a user types @your-agent
-    """
     body = await request.json()
     messages = body.get("messages", [])
 
-    # 1. Inject your custom company context!
     system_prompt = {
         "role": "system",
         "content": "You are the Contoso internal developer assistant. "
@@ -77,31 +100,25 @@ async def handle_copilot_request(request: Request):
     }
     messages.insert(0, system_prompt)
 
-    # 2. Generator function to stream the response back via SSE
-    async def generate():
+    async def generate_sse():
         stream = await client.chat.completions.create(
             model=DEPLOYMENT_NAME,
             messages=messages,
-            stream=True
+            stream=True,
+            max_tokens=2048,
+            temperature=0.3
         )
-        
         async for chunk in stream:
-            if len(chunk.choices) > 0 and chunk.choices[0].delta.content:
-                # Copilot expects SSE events in this specific JSON format
-                yield {
-                    "event": "copilot_response",
-                    "data": json.dumps({"choices": [{"delta": {"content": chunk.choices[0].delta.content}}]})
-                }
-        
-        # Signal completion
-        yield {"event": "copilot_response", "data": "[DONE]"}
+            if chunk.choices and chunk.choices[0].delta.content:
+                data = json.dumps({"choices": [{"delta": {"content": chunk.choices[0].delta.content}}]})
+                yield f"data: {data}\n\n"
+        yield "data: [DONE]\n\n"
 
-    # 3. Return the streaming response
-    return EventSourceResponse(generate())
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    return StreamingResponse(
+        generate_sse(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"}
+    )
 ```
 
 ---
@@ -121,11 +138,14 @@ Now, restart VS Code, open Copilot Chat, and type `@contoso-dev-bot Hello!`. You
 
 ---
 
-## 🧪 Exercise: Add Tool Calling to the Agent
+## 🧪 Exercise: Add MCP Integration to the Agent
 
-Modify the Python code above to intercept specific questions. 
-If the user asks `@contoso-dev-bot what is my ticket status?`, have your Python code extract the ticket ID, make a real HTTP request to Jira/Azure DevOps, and return the live status to the Copilot window!
+Modify the Python agent to intercept specific questions.
+If the user asks `@contoso-dev-bot what is my ticket status?`:
+1. Parse the intent and extract the ticket ID from the message.
+2. Connect to your internal Jira/Azure DevOps via an **MCP server** (so the tool can be reused across other AI apps too!).
+3. Return the live status with a formatted Markdown table to the Copilot window.
 
 ---
 
-**Next:** [08-CLAUDE-AGENTS-SKILLS.md](./08-CLAUDE-AGENTS-SKILLS.md) — Let's look at Claude 3.5, Tool Calling, and Agent "Skills".
+**Next:** [08-CLAUDE-AGENTS-SKILLS.md](./08-CLAUDE-AGENTS-SKILLS.md) — Let's look at Claude Opus/Sonnet 4.6, Tool Calling, and Agent "Skills".

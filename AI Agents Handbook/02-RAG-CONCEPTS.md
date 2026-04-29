@@ -6,10 +6,13 @@
 ## What You'll Learn
 - Why RAG is the most important architecture in Enterprise AI.
 - What Embeddings are and how they represent text as math.
-- How Vector Databases work.
+- How Vector Databases work (and the April 2026 options).
 - The mechanics of Chunking and Retrieval.
+- **GraphRAG**, **Multimodal RAG**, and **Agentic RAG** — the next evolution.
 
-**Time Required:** 30 minutes
+**Time Required:** 35 minutes
+
+> **📅 Updated: April 2026**
 
 ---
 
@@ -61,11 +64,16 @@ When a user asks a question, we convert their question into a vector, and we fin
 
 You cannot store arrays of 1,536 floating-point numbers efficiently in a standard SQL table. You need a **Vector Database**.
 
-Popular Vector Databases:
-- **Azure AI Search** (Enterprise standard in the Microsoft ecosystem)
-- **Pinecone** (Cloud-native vector DB)
-- **Qdrant / Milvus / Chroma** (Open-source)
-- **pgvector** (An extension for PostgreSQL)
+Popular Vector Databases (April 2026):
+
+| Vector DB | Type | Best For |
+|-----------|------|----------|
+| **Azure AI Search** | Managed cloud | Enterprise standard in Microsoft ecosystem, now with built-in GraphRAG |
+| **Microsoft.Extensions.VectorData** | .NET abstraction | Swap any vector DB without code changes (Qdrant, Pinecone, pgvector) |
+| **Azure AI Foundry Managed Memory** | Managed (preview) | Zero-config memory for Foundry Agent Service agents |
+| **Qdrant** | Open-source / Cloud | High-performance, great for hybrid search |
+| **pgvector** | PostgreSQL extension | Teams that want vectors inside existing Postgres |
+| **Pinecone** | Cloud-native | Simple API, good for startups |
 
 A Vector DB allows you to say: *"Here is my question's vector. Find the top 5 document vectors that are closest to this one in less than 50 milliseconds."*
 
@@ -86,7 +94,66 @@ Building a RAG application involves two distinct pipelines:
 2. **Embed Query:** Send the user's question to the Embedding Model to get a vector.
 3. **Search:** Query the Vector Database for the top 3 chunks closest to the question's vector.
 4. **Augment:** Construct a prompt containing the text of those 3 chunks.
-5. **Generate:** Send the augmented prompt to the Chat Model (e.g., GPT-4) to get the final answer.
+5. **Generate:** Send the augmented prompt to the Chat Model (e.g., GPT-5.4 or Claude Sonnet 4.6) to get the final answer.
+
+---
+
+## 6. GraphRAG — Beyond Simple Vector Search (April 2026)
+
+Standard RAG finds chunks that are **semantically similar** to the question. But what if the answer requires combining information from across many different documents that aren’t individually similar to the query?
+
+**GraphRAG** (now GA in Azure AI Search) builds a **knowledge graph** of entities and relationships extracted from your documents. Instead of searching for similar text chunks, it traverses this graph to answer complex questions.
+
+*When to use GraphRAG instead of standard RAG:*
+- "Who has worked with whom on project X?" — requires connecting people, projects, and relationships.
+- "How does Policy A affect Process B in Region C?" — requires connecting multiple concepts.
+- Regulatory compliance questions spanning multiple documents.
+
+```python
+# Using Azure AI Search GraphRAG (April 2026)
+from azure.search.documents import SearchClient
+from azure.identity import DefaultAzureCredential
+
+search_client = SearchClient(
+    endpoint=os.environ["AZURE_SEARCH_ENDPOINT"],
+    index_name="my-graph-rag-index",
+    credential=DefaultAzureCredential()
+)
+
+# GraphRAG uses semantic + graph traversal
+results = search_client.search(
+    search_text=query,
+    query_type="semantic",
+    semantic_configuration_name="my-semantic-config",
+    query_answer="extractive",
+    top=5
+)
+```
+
+---
+
+## 7. Multimodal RAG — Images, Audio, and Video (April 2026)
+
+Models like **GPT-5.4** and **Gemini 3.1 Pro** can process text, images, audio, and video in a single context window. Multimodal RAG lets you index and retrieve non-text content.
+
+**Use cases:**
+- Index engineering diagrams and technical drawings; retrieve the right one based on a question.
+- Index product images; answer "does this product come in blue?"
+- Index meeting recordings; find the segment where budget was discussed.
+
+```python
+# Multimodal embedding with Azure AI (April 2026)
+# text-embedding-3-large supports image+text co-embedding
+from openai import AzureOpenAI
+
+client = AzureOpenAI(...)
+
+# Embed a base64 image alongside text for multimodal retrieval
+response = client.embeddings.create(
+    input=["Product diagram showing hydraulic assembly"],
+    model="text-embedding-3-large"
+)
+```
 
 ---
 

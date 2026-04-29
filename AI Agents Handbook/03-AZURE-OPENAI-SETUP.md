@@ -4,12 +4,15 @@
 ---
 
 ## What You'll Learn
-- The difference between OpenAI (Public) and Azure OpenAI (Enterprise).
-- How to provision an Azure OpenAI resource.
-- Deploying models vs. using base models.
+- The difference between OpenAI (Public) and Azure AI Foundry (Enterprise).
+- How to provision via the Azure AI Foundry portal (ai.azure.com).
+- Deploying models vs. using the model catalog.
 - Authentication mechanisms (API Keys vs. Managed Identity).
+- New April 2026: Foundry Local, BYO AI Gateway.
 
 **Time Required:** 30 minutes
+
+> **📅 Updated: April 2026** — Azure AI Studio is now Azure AI Foundry. Navigate to [ai.azure.com](https://ai.azure.com).
 
 ---
 
@@ -24,47 +27,51 @@ OpenAI created GPT-4, but if you build an enterprise application sending sensiti
 
 ---
 
-## 2. Provisioning the Resource
+## 2. Provisioning via Azure AI Foundry (April 2026)
 
-To use Azure OpenAI, you must first create a resource in the Azure Portal.
+> **Important:** Azure AI Studio has been renamed to **Azure AI Foundry**. Go to [ai.azure.com](https://ai.azure.com).
 
-1. Go to the Azure Portal.
-2. Search for **Azure OpenAI**.
-3. Click **Create**.
-4. Choose your Subscription, Resource Group, and Region (e.g., `East US`).
-5. Choose a Pricing Tier (`Standard S0`).
+Provisioning now uses the **AI Foundry Hub + Project** model:
 
-*Note: Azure OpenAI access is currently gated by Microsoft. Your Azure Subscription must be approved via a Microsoft application form before you can create this resource.*
+1. Go to [ai.azure.com](https://ai.azure.com).
+2. Click **+ Create** → **Hub** (your organization-level container).
+3. Inside the Hub, create a **Project** (your application-level container).
+4. Access is no longer gated by a Microsoft approval form for most Azure subscriptions.
+5. Inside your Project, go to **Model catalog** → find your model → **Deploy**.
+
+*Note: PTU (Provisioned Throughput Units) deployments are now recommended for production workloads with predictable traffic.*
 
 ---
 
-## 3. Deployments vs. Models
+## 3. Deployments vs. Model Catalog
 
 In the public OpenAI API, you simply specify `"model": "gpt-4"` in your code.
-In Azure OpenAI, you must create a **Deployment**.
-
-A Deployment is an instance of a specific model version assigned a name of your choosing.
+In Azure AI Foundry, you must create a **Deployment**.
 
 ### How to Create a Deployment:
-1. Open the **Azure AI Studio** (from your Azure OpenAI resource overview page).
-2. Go to **Deployments** -> **Create new deployment**.
-3. Select a model (e.g., `gpt-4o`).
-4. Select a version (e.g., `2024-05-13`).
-5. Give it a **Deployment Name** (e.g., `my-gpt4-deployment`).
+1. Open [ai.azure.com](https://ai.azure.com) and open your Project.
+2. Go to **Models + endpoints** → **Deploy model**.
+3. Browse the model catalog — includes OpenAI models (GPT-5.4, o4-mini), Microsoft models (Phi-4-Reasoning-Vision), and 3rd-party models (Claude Sonnet 4.6, Gemini 3.1 Pro via MaaS).
+4. Select your model and choose **Deployment type:**
+   - **Standard** — pay per token, best for variable workloads
+   - **Global Standard** — higher throughput via global routing
+   - **Provisioned (PTU)** — reserved capacity, best for production SLAs
+5. Give it a **Deployment Name** (e.g., `gpt-5-4-prod`).
 
-*Crucial Concept:* In your code, you will reference the **Deployment Name**, not the model name. If you name your deployment `my-custom-ai`, you will pass `my-custom-ai` in your code.
+> **April 2026:** You can now deploy **Claude Sonnet 4.6** and **Gemini 3.1 Pro** directly inside Azure AI Foundry as first-class Models-as-a-Service (MaaS), billed to your Azure subscription — no separate Anthropic or Google accounts needed.
 
 ---
 
-## 4. Required Configuration Values
+## 4. Required Configuration Values (April 2026)
 
-To connect any application (C# or Python) to Azure OpenAI, you need three pieces of information:
+To connect any application (C# or Python) to Azure AI Foundry, you need:
 
-1. **Endpoint:** `https://<your-resource-name>.openai.azure.com/`
-2. **API Version:** Azure APIs require a date-based version string (e.g., `2024-02-15-preview`).
-3. **Authentication:** 
-   - *Option A:* An API Key (Found under "Keys and Endpoint" in the portal).
-   - *Option B:* Managed Identity (Recommended for production).
+1. **Endpoint:** `https://<hub-name>.services.ai.azure.com/` *(new format for AI Foundry Hub endpoints)*
+2. **API Version:** Use `2025-01-01-preview` or later for access to latest models.
+3. **Deployment Name:** The name you gave your model deployment.
+4. **Authentication:**
+   - *Option A:* API Key (from **Keys and Endpoint** tab in your Project settings).
+   - *Option B:* `DefaultAzureCredential` via Managed Identity (required for production).
 
 ---
 
@@ -84,23 +91,34 @@ Use `DefaultAzureCredential` from the `Azure.Identity` package. This completely 
 
 ```csharp
 using Azure.Identity;
-using Azure.AI.OpenAI;
+using Azure.AI.Inference;  // New package for Azure AI Foundry (April 2026)
 
-var endpoint = new Uri("https://my-resource.openai.azure.com/");
+var endpoint = new Uri("https://my-hub.services.ai.azure.com/");
 var credentials = new DefaultAzureCredential();
 
-var client = new OpenAIClient(endpoint, credentials);
+// Use the new ChatCompletionsClient (wraps as IChatClient via Microsoft.Extensions.AI)
+var client = new ChatCompletionsClient(endpoint, credentials);
+var chatClient = client.AsChatClient(modelId: "gpt-5-4-prod");
 ```
+
+---
+
+## 6. New in April 2026: BYO AI Gateway
+
+You can now connect the Foundry Agent Service to models hosted behind your own **Azure API Management** or custom AI gateway. This gives enterprises:
+- Full control over model routing and rate limits.
+- Ability to use fine-tuned or on-premises models with the Foundry agent infrastructure.
+- Centralized billing and governance across multiple model providers.
 
 ---
 
 ## 🧪 Exercise: Chat Playground
 
-1. Go to Azure AI Studio.
-2. Navigate to the **Chat Playground**.
-3. Under the **Setup** pane, find the **System Message** box.
+1. Go to [ai.azure.com](https://ai.azure.com) (Azure AI Foundry).
+2. Open your Project → **Playgrounds** → **Chat Playground**.
+3. Under the **Setup** pane, find the **System message** box.
 4. Type: *"You are an AI that only speaks in pirate slang. You must end every sentence with 'Arrr!'."*
-5. Chat with the model in the main window and observe how powerfully the System Prompt dictates its behavior.
+5. Try switching between different deployed models (GPT-5.4 vs. o4-mini) and notice the difference in reasoning quality!
 
 ---
 

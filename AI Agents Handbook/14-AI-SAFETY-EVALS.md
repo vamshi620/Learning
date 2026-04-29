@@ -7,9 +7,11 @@
 - Why AI Safety is mandatory, not optional, for enterprise applications.
 - How to implement Input and Output Guardrails.
 - How to evaluate AI application quality using automated testing.
-- Using Azure AI Content Safety to filter harmful content.
+- **Azure AI Content Safety** (April 2026 updates) and the new **Azure AI Evals** service.
 
-**Time Required:** 30 minutes
+**Time Required:** 35 minutes
+
+> **📅 Updated: April 2026** — Added Azure AI Evals service, Groundedness detection, and Prompt Shield updates.
 
 ---
 
@@ -114,48 +116,58 @@ async def handle_copilot_request(request: Request):
 
 ---
 
-## 4. Azure AI Content Safety
+## 4. Azure AI Content Safety (April 2026)
 
-Azure provides a managed service that classifies content on 4 dimensions: **Hate**, **Violence**, **Sexual**, and **Self-Harm**. Each is scored from 0 (safe) to 6 (very harmful).
+Azure AI Content Safety now includes two new capabilities beyond the original 4-category classifier:
 
-```bash
-pip install azure-ai-contentsafety
-```
+| Feature | Status | What It Detects |
+|---------|--------|----------------|
+| **Hate / Violence / Sexual / Self-Harm** | GA | Original 4-category content classification |
+| **Prompt Shield** | GA | Prompt injection and jailbreak attempts |
+| **Groundedness Detection** | GA | Detects hallucinations — answers not supported by the RAG context |
+| **Protected Material** | GA | Detects copyrighted text or code in AI output |
 
 ```python
 from azure.ai.contentsafety import ContentSafetyClient
-from azure.ai.contentsafety.models import AnalyzeTextOptions
+from azure.ai.contentsafety.models import (
+    AnalyzeTextOptions,
+    ShieldPromptOptions,  # New: Prompt Shield
+    DetectGroundednessOptions  # New: Groundedness
+)
 from azure.core.credentials import AzureKeyCredential
-from azure.core.exceptions import HttpResponseError
 
 content_safety_client = ContentSafetyClient(
     endpoint=os.environ["CONTENT_SAFETY_ENDPOINT"],
     credential=AzureKeyCredential(os.environ["CONTENT_SAFETY_KEY"])
 )
 
-def is_content_safe(text: str, threshold: int = 2) -> tuple[bool, str]:
-    """
-    Returns (is_safe, violation_category)
-    threshold: 0=allow all, 2=block medium+, 4=block high+, 6=block only extreme
-    """
-    request = AnalyzeTextOptions(text=text)
-    try:
-        response = content_safety_client.analyze_text(request)
-        categories = {
-            "Hate": response.hate_result.severity if response.hate_result else 0,
-            "Violence": response.violence_result.severity if response.violence_result else 0,
-            "Sexual": response.sexual_result.severity if response.sexual_result else 0,
-            "SelfHarm": response.self_harm_result.severity if response.self_harm_result else 0,
-        }
-        for category, severity in categories.items():
-            if severity >= threshold:
-                return False, category
-        return True, ""
-    except HttpResponseError as e:
-        # Fail open or fail closed based on your risk tolerance
-        # Fail open = allow the message (better UX, higher risk)
-        # Fail closed = block the message (safer, worse UX on service outage)
-        return False, "ContentSafetyServiceUnavailable"
+# 1. Prompt Shield — detect injection attacks BEFORE sending to the LLM
+def shield_prompt(user_input: str) -> bool:
+    """Returns True if the prompt is safe (no injection detected)"""
+    result = content_safety_client.shield_prompt(
+        ShieldPromptOptions(
+            user_prompt=user_input,
+            documents=[]  # optionally include RAG documents to check for indirect injection
+        )
+    )
+    return not result.user_prompt_attack_detected
+
+# 2. Groundedness Detection — check if AI answer is supported by context (AFTER generation)
+def check_groundedness(query: str, context: str, ai_answer: str) -> dict:
+    """Returns groundedness result — is the answer actually supported by the context?"""
+    result = content_safety_client.detect_groundedness(
+        DetectGroundednessOptions(
+            domain="Medical",  # or "Generic"
+            task="QnA",
+            query=query,
+            ground_truth=context,
+            answer=ai_answer
+        )
+    )
+    return {
+        "is_grounded": not result.ungrounded,
+        "reason": result.reason
+    }
 ```
 
 ---
@@ -196,13 +208,57 @@ class OutputGuardrail:
 
 ---
 
-## 6. Evaluating AI Application Quality
+## 6. Azure AI Evals Service — Automated Quality Scoring (April 2026)
 
-How do you know if your AI agent is actually giving correct answers? You need **automated evaluations (Evals)**.
+> **New in April 2026:** Azure AI Foundry includes a managed **Azure AI Evals** service. Instead of writing your own eval harness, you can run standardized evaluations against your agent via the Azure SDK and see results in the Foundry portal.
 
-An Eval is like a unit test for AI: given an input, what does a "correct" output look like?
+```python
+from azure.ai.projects import AIProjectClient
+from azure.ai.projects.models import (
+    Evaluation,
+    EvaluatorConfiguration,
+    ConnectionType
+)
+from azure.identity import DefaultAzureCredential
 
-### Creating a Simple Eval Suite (Python)
+client = AIProjectClient.from_connection_string(
+    conn_str=os.environ["AZURE_AI_PROJECT_CONNECTION_STRING"],
+    credential=DefaultAzureCredential()
+)
+
+# Run a groundedness + relevance eval using Azure AI Evals
+evaluation = client.evaluations.create(
+    evaluation=Evaluation(
+        display_name="Sprint-42 Agent Quality Eval",
+        description="Evaluate groundedness and relevance for the DevOps agent",
+        data=client.evaluations.upload_data(
+            data=[
+                {
+                    "query": "What is the WFH policy?",
+                    "context": "Employees may work remotely up to 3 days per week.",
+                    "response": "You can work from home 3 days a week."
+                },
+                # ... more test cases
+            ]
+        ),
+        evaluators={
+            "groundedness": EvaluatorConfiguration(
+                id=client.evaluations.get_evaluator_id("Groundedness")
+            ),
+            "relevance": EvaluatorConfiguration(
+                id=client.evaluations.get_evaluator_id("Relevance")
+            )
+        }
+    )
+)
+
+print(f"Eval ID: {evaluation.id}")
+# View results in Azure AI Foundry portal: ai.azure.com > Evaluation
+```
+
+### Custom Eval Suite (Local — for CI/CD pipelines)
+
+You can still run local eval suites in your CI/CD pipeline:
 
 ```python
 import json
