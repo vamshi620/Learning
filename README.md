@@ -114,5 +114,9 @@ A zero-to-hero handbook for building AI applications, autonomous agents, and cus
 | 08 | [Claude Agents & Skills](AI%20Agents%20Handbook/08-CLAUDE-AGENTS-SKILLS.md) | Tool Calling & Custom Skills |
 | 09 | [MCP Explained](AI%20Agents%20Handbook/09-MCP-EXPLAINED.md) | Model Context Protocol Setup |
 | 10 | [Azure AI Agents](AI%20Agents%20Handbook/10-AZURE-AI-AGENTS.md) | Autonomous ReAct Agents |
+| 11 | [Prompt Engineering](AI%20Agents%20Handbook/11-PROMPT-ENGINEERING.md) | CoT, Few-Shot, RSCEF Framework |
+| 12 | [Copilot Agents Step-by-Step](AI%20Agents%20Handbook/12-GITHUB-COPILOT-AGENTS-GUIDE.md) | Full Build Guide + Best Practices |
+| 13 | [AI Memory Patterns](AI%20Agents%20Handbook/13-AI-MEMORY-PATTERNS.md) | Short-Term, Long-Term, Semantic |
+| 14 | [AI Safety & Evals](AI%20Agents%20Handbook/14-AI-SAFETY-EVALS.md) | Guardrails & Automated Testing |
 
 
