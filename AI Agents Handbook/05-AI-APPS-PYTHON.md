@@ -13,11 +13,22 @@
 
 ---
 
-## 1. The Python AI Ecosystem
+## 1. The Python AI Ecosystem (2025 State)
 
-While .NET has Semantic Kernel, Python is the undisputed king of the AI ecosystem. Almost all new AI frameworks, research papers, and vector database SDKs release in Python first.
+While .NET has Semantic Kernel and Microsoft.Extensions.AI (see [File 15](./15-DOTNET-AGENT-FRAMEWORK.md)), Python is the undisputed king of the AI ecosystem. Almost all new AI frameworks, research papers, and vector database SDKs release in Python first.
 
-**LangChain** is the most popular open-source framework for developing applications powered by language models in Python.
+**2025 Python AI Stack:**
+
+| Tool | Role |
+|------|------|
+| `langchain` / `langchain-community` | LLM orchestration and RAG pipelines |
+| `langgraph` | Stateful multi-agent orchestration (successor to LangChain agents) |
+| `llama-index` | RAG-specialized framework |
+| `openai` / `anthropic` | Direct SDK access to models |
+| `fastapi` | Serving AI endpoints as REST APIs |
+| `chromadb` / `qdrant-client` | Local and cloud vector databases |
+
+> **2025 Update:** For complex multi-agent systems in Python, **LangGraph** has largely replaced older LangChain agent patterns. It provides a graph-based state machine that gives much more control over the agent loop than the simple `AgentExecutor`.
 
 ### Setup
 Ensure you have Python 3.10+ installed, then install the required libraries:

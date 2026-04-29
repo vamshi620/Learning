@@ -21,13 +21,21 @@ When building AI apps, you could just send raw HTTP requests to the OpenAI REST 
 
 ---
 
-## 2. Setting Up Your First AI App
+## 2. Setting Up Your First AI App (Updated for 2025)
 
-Create a new .NET 8 Console Application and install the necessary NuGet packages:
+> **⚠️ 2025 Update:** The recommended approach is now to use `Microsoft.Extensions.AI` as the abstraction layer over Semantic Kernel. This prevents vendor lock-in and integrates natively with ASP.NET Core DI. See [File 15](./15-DOTNET-AGENT-FRAMEWORK.md) for the complete Microsoft Agent Framework guide.
+
+Create a new .NET 8+ project and install the necessary NuGet packages:
 
 ```powershell
 dotnet new console -n AiDotNetDemo
 cd AiDotNetDemo
+
+# Core abstraction (recommended for all .NET AI apps)
+dotnet add package Microsoft.Extensions.AI
+dotnet add package Microsoft.Extensions.AI.AzureAIInference
+
+# Semantic Kernel for orchestration and agents
 dotnet add package Microsoft.SemanticKernel
 dotnet add package Azure.Identity
 ```

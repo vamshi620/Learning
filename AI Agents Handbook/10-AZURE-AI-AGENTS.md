@@ -1,6 +1,8 @@
 # Generative AI & Agents
 ## File 10: Autonomous AI Agents with Azure OpenAI (ReAct Pattern)
 
+> **⚠️ 2025 Update:** Microsoft now offers the **Azure AI Foundry Agent Service** — a fully managed agent platform that handles state, tool execution, file search, and code interpretation without custom infrastructure. For new enterprise projects, consider starting there (fully covered in [File 15](./15-DOTNET-AGENT-FRAMEWORK.md)). This file covers the foundational ReAct pattern, which is still important to understand for custom/self-hosted agent scenarios.
+
 ---
 
 ## What You'll Learn

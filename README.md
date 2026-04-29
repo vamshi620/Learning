@@ -118,5 +118,6 @@ A zero-to-hero handbook for building AI applications, autonomous agents, and cus
 | 12 | [Copilot Agents Step-by-Step](AI%20Agents%20Handbook/12-GITHUB-COPILOT-AGENTS-GUIDE.md) | Full Build Guide + Best Practices |
 | 13 | [AI Memory Patterns](AI%20Agents%20Handbook/13-AI-MEMORY-PATTERNS.md) | Short-Term, Long-Term, Semantic |
 | 14 | [AI Safety & Evals](AI%20Agents%20Handbook/14-AI-SAFETY-EVALS.md) | Guardrails & Automated Testing |
+| 15 | [Microsoft Agent Framework](AI%20Agents%20Handbook/15-DOTNET-AGENT-FRAMEWORK.md) | SK Agents, AutoGen.NET, Azure AI Foundry |
 
 

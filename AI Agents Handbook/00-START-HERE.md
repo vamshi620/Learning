@@ -3,7 +3,14 @@
 
 Welcome to the **Zero-to-Hero Generative AI & AI Agents** handbook! This guide is designed for developers who want to move beyond basic ChatGPT usage and learn how to build enterprise-grade AI applications, autonomous agents, and custom Copilot experiences.
 
-**Total Estimated Time:** 6-8 hours to complete all paths.
+**Total Estimated Time:** 10-12 hours to complete all paths.
+
+**Tech Stack Covered:**
+- **Cloud:** Azure AI Foundry (formerly AI Studio), Azure OpenAI, Azure AI Search
+- **.NET:** Microsoft.Extensions.AI, Semantic Kernel v1.x, AutoGen.NET, Azure AI Foundry Agent Service
+- **Python:** LangChain 0.3, LangGraph, LlamaIndex, FastAPI
+- **Models:** GPT-4.1, GPT-4o, Claude 3.7 Sonnet, Gemini 2.5 Pro, Phi-4 (local)
+- **Tools:** GitHub Copilot Extensions, MCP, Testcontainers, Azure Content Safety
 
 ---
 
@@ -26,6 +33,7 @@ Welcome to the **Zero-to-Hero Generative AI & AI Agents** handbook! This guide i
 | [`12-GITHUB-COPILOT-AGENTS-GUIDE.md`](./12-GITHUB-COPILOT-AGENTS-GUIDE.md) | Step-by-Step: Build a Copilot Agent (Best Practices) | 🔴 Advanced |
 | [`13-AI-MEMORY-PATTERNS.md`](./13-AI-MEMORY-PATTERNS.md) | AI Memory — Short-Term, Long-Term & Semantic Memory | 🔴 Advanced |
 | [`14-AI-SAFETY-EVALS.md`](./14-AI-SAFETY-EVALS.md) | AI Safety, Guardrails & Evaluation Frameworks | 🔴 Advanced |
+| [`15-DOTNET-AGENT-FRAMEWORK.md`](./15-DOTNET-AGENT-FRAMEWORK.md) | Microsoft Agent Framework: SK Agents, AutoGen.NET, Azure AI Foundry | 🔴 Advanced |
 
 ---
 

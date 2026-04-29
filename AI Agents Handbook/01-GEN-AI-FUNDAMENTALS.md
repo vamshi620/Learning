@@ -15,7 +15,18 @@
 
 ## 1. What is a Large Language Model (LLM)?
 
-At its core, a Large Language Model (like GPT-4, Claude 3.5, or Llama 3) is a massive mathematical function. It does not "think" or "know facts" like a database. 
+At its core, a Large Language Model (like GPT-4.1, Claude 3.7 Sonnet, Gemini 2.5 Pro, or open-source Llama 3.3) is a massive mathematical function. It does not "think" or "know facts" like a database.
+
+> **2025 Model Landscape:**
+>
+> | Model | Provider | Context Window | Strength |
+> |-------|----------|---------------|----------|
+> | GPT-4.1 | Azure/OpenAI | 1M tokens | Long docs, coding, instruction following |
+> | GPT-4o / 4o-mini | Azure/OpenAI | 128K tokens | General purpose, balanced speed & cost |
+> | o1 / o3 / o4-mini | Azure/OpenAI | 200K tokens | Deep reasoning, math, complex code |
+> | Claude 3.7 Sonnet | Anthropic | 200K tokens | Extended thinking, coding, agents |
+> | Gemini 2.5 Pro | Google | 1M tokens | Multimodal, long-form reasoning |
+> | Llama 3.3 / Phi-4 | Meta/Microsoft | 128K/16K | Open-source, self-hosted via Ollama | 
 
 Instead, it predicts the **next most likely token** based on the sequence of tokens that came before it.
 
