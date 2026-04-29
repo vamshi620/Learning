@@ -11,6 +11,8 @@
 - Schema evolution and compatibility rules
 - Custom serializers in Confluent.Kafka
 
+**Time Required:** 30 minutes
+
 ---
 
 ## 1. Why Serialization Matters
@@ -500,3 +502,10 @@ You now know:
 - ✅ CloudEvents standard for interoperability
 
 **Next:** [08-ERROR-HANDLING.md](./08-ERROR-HANDLING.md) — Retry patterns and Dead Letter Queues
+
+---
+
+## 🧪 Exercise: Serialization Formats
+1. Take the JSON producer we built and run it. Look at the message size in bytes (use the DeliveryResult.Value.Length or view it in Kafka UI).
+2. Swap the serializer to Protobuf as shown in this file.
+3. Compare the byte size of the exact same data payload. How much smaller is the binary version?

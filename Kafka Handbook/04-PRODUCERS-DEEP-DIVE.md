@@ -12,6 +12,8 @@
 - Batch producing patterns
 - Producer metrics and monitoring hooks
 
+**Time Required:** 30 minutes
+
 ---
 
 ## 1. Producer Configuration Deep Dive
@@ -521,3 +523,11 @@ You now know:
 - ✅ Common mistakes to avoid
 
 **Next:** [05-CONSUMERS-DEEP-DIVE.md](./05-CONSUMERS-DEEP-DIVE.md) — Advanced consumer patterns
+
+---
+
+## 🧪 Exercise: Producer Reliability
+1. Modify the ProducerBuilder to set Acks = Acks.None.
+2. Produce 10 messages in a loop and time how long it takes.
+3. Change it back to Acks = Acks.All and time it again. Notice the latency difference!
+4. **Challenge:** Try producing to a topic that doesn't exist while AutoCreateTopicsEnable = false. Observe the exception thrown.

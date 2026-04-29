@@ -12,6 +12,8 @@
 - Event sourcing overview with Kafka
 - Domain events in .NET microservices
 
+**Time Required:** 60 minutes
+
 ---
 
 ## 1. Event-Driven Architecture Recap

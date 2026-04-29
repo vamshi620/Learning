@@ -10,6 +10,8 @@
 - Change Data Capture (CDC) with Debezium
 - Why Kafka Connect is often better than custom Outbox relays
 
+**Time Required:** 20 minutes
+
 ---
 
 ## 1. What is Kafka Connect?
@@ -31,7 +33,7 @@ Instead of writing a .NET application to poll a database and publish to Kafka, y
 A **Source Connector** ingests data from an external system into Kafka topics.
 
 ### The "Custom Outbox" Problem
-In File 10, we built an `OutboxRelayService` in C#. It polled an EF Core table every second and called `producer.ProduceAsync()`.
+In [File 10](./10-ADVANCED-PATTERNS.md), we built an `OutboxRelayService` in C#. It polled an EF Core table every second and called `producer.ProduceAsync()`.
 This works, but:
 1. Polling a database table continuously creates DB load.
 2. If the app crashes midway, you have to handle complex retry and locking logic.
@@ -94,6 +96,8 @@ Rather than writing a C# `BackgroundService` consumer just to take an event and 
 - You are just moving data from Point A to Point B without changing it.
 - You want to stream database changes (CDC) reliably.
 - You are archiving data to a data lake.
+
+**Time Required:** 20 minutes
 
 ---
 

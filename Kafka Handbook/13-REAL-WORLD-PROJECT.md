@@ -13,6 +13,8 @@ You'll build a complete **Order Processing System** using:
 - Serilog + OpenTelemetry for observability
 - Docker Compose for local development
 
+**Time Required:** 120 minutes
+
 ---
 
 ## Architecture

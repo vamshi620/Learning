@@ -12,6 +12,8 @@
 - Topic configuration tuning
 - Topic design patterns for .NET microservices
 
+**Time Required:** 20 minutes
+
 ---
 
 ## 1. Partition Count — How to Decide

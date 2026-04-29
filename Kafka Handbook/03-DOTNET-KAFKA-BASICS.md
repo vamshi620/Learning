@@ -416,7 +416,7 @@ async Task ProcessOrderAsync(
     catch (JsonException ex)
     {
         Console.WriteLine($"[{meta}] ❌ JSON deserialization failed: {ex.Message}");
-        // Bad message — commit it to skip (or send to DLQ — see File 08)
+        // Bad message — commit it to skip (or send to DLQ — see [File 08](./08-ERROR-HANDLING.md))
         kafkaConsumer.Commit(consumeResult);
     }
     catch (Exception ex)
@@ -424,7 +424,7 @@ async Task ProcessOrderAsync(
         Console.WriteLine($"[{meta}] ❌ Processing failed: {ex.Message}");
         // DON'T commit — on restart, this message will be reprocessed
         // This is "at-least-once" delivery
-        throw; // Or implement retry logic (see File 08)
+        throw; // Or implement retry logic (see [File 08](./08-ERROR-HANDLING.md))
     }
 }
 ```
@@ -661,7 +661,7 @@ var producer = new ProducerBuilder<string, byte[]>(config).Build();
 var producer = new ProducerBuilder<Null, string>(config).Build();
 var message = new Message<Null, string> { Key = Null.Value, Value = json };
 
-// Custom type with custom serializer (see File 07 for Avro/Protobuf)
+// Custom type with custom serializer (see [File 07](./07-SERIALIZATION.md) for Avro/Protobuf)
 var producer = new ProducerBuilder<string, OrderEvent>(config)
     .SetValueSerializer(new JsonSerializer<OrderEvent>())
     .Build();

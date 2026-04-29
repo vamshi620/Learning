@@ -12,6 +12,8 @@
 - Idempotent consumers
 - Circuit breaker pattern with Kafka
 
+**Time Required:** 45 minutes
+
 ---
 
 ## 1. Error Types in Kafka
@@ -606,3 +608,12 @@ You now know:
 - ✅ Circuit breaker to protect downstream services
 
 **Next:** [09-KAFKA-WITH-AZURE.md](./09-KAFKA-WITH-AZURE.md) — Azure Event Hubs for Kafka & deployment
+
+---
+
+## 🧪 Exercise: Trigger the Dead Letter Queue (DLQ)
+1. Add the DLQ retry handler to your consumer.
+2. Publish a valid JSON message and verify it processes successfully.
+3. Publish a **malformed** JSON string (e.g., {"orderId": "123", "amount": "INVALID"}).
+4. Watch the consumer throw a JsonException, catch it, and route it to the orders-dlq topic.
+5. **Challenge:** Create a separate background service that only consumes from orders-dlq and logs the failed messages to a text file for review.

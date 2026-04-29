@@ -9,6 +9,8 @@
 - Mocking `IProducer<K, V>` and `IConsumer<K, V>` for fast Unit Tests
 - Writing real Integration Tests using **Testcontainers**
 
+**Time Required:** 30 minutes
+
 ---
 
 ## 1. Why is Kafka Hard to Test?

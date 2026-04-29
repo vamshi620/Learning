@@ -12,6 +12,8 @@
 - Health checks for Kafka
 - Alerting rules and dashboards
 
+**Time Required:** 45 minutes
+
 ---
 
 ## 1. Key Metrics to Monitor

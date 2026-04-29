@@ -11,6 +11,8 @@
 - **Authorization:** Restricting *what* you can do (ACLs)
 - Configuring `.NET Confluent.Kafka` clients for secure environments
 
+**Time Required:** 30 minutes
+
 ---
 
 ## 1. The Security Triad in Kafka
@@ -166,7 +168,7 @@ If a consumer tries to subscribe to a topic it doesn't have `Read` access to, it
 1. **Never commit secrets:** Never put `SaslPassword` in your code or `appsettings.json`. Use Azure Key Vault, AWS Secrets Manager, or Environment Variables.
 2. **Use unique credentials per service:** `order-service` and `inventory-service` should have different usernames and different ACLs. Do not share a global "kafka-admin" account.
 3. **Handle Auth Exceptions:** If your credentials rotate or expire, `Confluent.Kafka` will report errors via the `.SetErrorHandler()` callback. Monitor these closely.
-4. **Prefer Managed Identity in Azure:** If using Azure Event Hubs, avoid SAS keys entirely and use Azure Active Directory (OAuth) Managed Identities (as covered in File 09).
+4. **Prefer Managed Identity in Azure:** If using Azure Event Hubs, avoid SAS keys entirely and use Azure Active Directory (OAuth) Managed Identities (as covered in [File 09](./09-KAFKA-WITH-AZURE.md)).
 
 ---
 

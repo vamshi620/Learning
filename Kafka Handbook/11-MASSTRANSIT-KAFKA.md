@@ -11,6 +11,8 @@
 - Outbox pattern built into MassTransit
 - Testing MassTransit Kafka consumers
 
+**Time Required:** 45 minutes
+
 ---
 
 ## 1. Why MassTransit?
@@ -529,6 +531,8 @@ public class OrderPlacedConsumerTests
 - ✅ Batch consumption patterns
 - ✅ Exactly-once semantics with transactions
 - ✅ Event streaming / log processing
+
+**Time Required:** 45 minutes
 
 ---
 

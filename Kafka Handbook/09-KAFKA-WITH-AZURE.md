@@ -11,6 +11,8 @@
 - Deploying Kafka-based .NET apps to Azure Kubernetes Service (AKS)
 - Security: Azure AD authentication, managed identity
 
+**Time Required:** 60 minutes
+
 ---
 
 ## 1. Azure Event Hubs for Kafka

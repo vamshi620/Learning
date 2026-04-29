@@ -377,7 +377,7 @@ KAFKA_CFG_PROCESS_ROLES: broker,controller  # Kafka manages itself
 5. Brokers 1 and 3 replicate from Broker 2
 
 6. Broker 2 sends acknowledgment to Producer
-   (depending on acks setting — more on this in File 04)
+   (depending on acks setting — more on this in [File 04](./04-PRODUCERS-DEEP-DIVE.md))
 ```
 
 ### Consuming a Message

@@ -13,6 +13,8 @@
 - Consumer lag monitoring
 - Seeking and replaying messages
 
+**Time Required:** 45 minutes
+
 ---
 
 ## 1. Consumer Group Deep Dive
@@ -552,3 +554,11 @@ You now know:
 - ✅ Consumer configuration and common pitfalls
 
 **Next:** [06-TOPICS-PARTITIONS-OFFSETS.md](./06-TOPICS-PARTITIONS-OFFSETS.md) — Deep dive into topics, partitions, and offsets
+
+---
+
+## 🧪 Exercise: Consumer Groups in Action
+1. Run TWO instances of your Consumer console app at the same time in different terminal windows.
+2. Publish 10 messages from your Producer.
+3. Observe how the messages are split between the two consumer windows (this is partition assignment in action!).
+4. **Challenge:** Kill one consumer window while it's processing. Watch the remaining consumer output a [REBALANCE] message and take over the partitions!
