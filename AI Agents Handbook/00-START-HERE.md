@@ -3,6 +3,8 @@
 
 Welcome to the **Zero-to-Hero Generative AI & AI Agents** handbook! This guide is designed for developers who want to move beyond basic ChatGPT usage and learn how to build enterprise-grade AI applications, autonomous agents, and custom Copilot experiences.
 
+**Total Estimated Time:** 6-8 hours to complete all paths.
+
 ---
 
 ## 📂 Handbook Structure

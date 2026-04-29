@@ -104,7 +104,6 @@ A zero-to-hero handbook for building AI applications, autonomous agents, and cus
 
 | # | AI Document | Focus |
 |---|-------------|-------|
-| 00 | [Start Here](AI%20Agents%20Handbook/00-START-HERE.md) | Overview & Learning Path |
 | 01 | [Gen AI Fundamentals](AI%20Agents%20Handbook/01-GEN-AI-FUNDAMENTALS.md) | LLMs, Tokens, Context Windows |
 | 02 | [RAG Concepts](AI%20Agents%20Handbook/02-RAG-CONCEPTS.md) | Embeddings & Vector DBs |
 | 03 | [Azure OpenAI Setup](AI%20Agents%20Handbook/03-AZURE-OPENAI-SETUP.md) | Provisioning & API Keys |

@@ -127,6 +127,14 @@ This is how Enterprise AI applications scale!
 
 ---
 
+## 🧪 Exercise: Trace the ReAct Loop
+1. Take the exact Python code provided above and copy it into your IDE.
+2. Modify the user input to: *"Draft an email to supplier ABC asking for 500 units, then save it to OneDrive. Do NOT check the database first."*
+3. Watch the terminal output (`verbose=True`). Notice how the agent skips the database tool and jumps straight to the `draft_email` tool.
+4. Try to "trick" the agent by asking it a math question (which it doesn't have a tool for). Observe how the ReAct loop handles missing tools!
+
+---
+
 ## 🎉 Conclusion
 
 You have completed the **Generative AI & AI Agents Handbook**!
