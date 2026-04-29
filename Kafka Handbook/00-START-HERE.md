@@ -20,23 +20,23 @@ This handbook is for **.NET developers** who are new to Apache Kafka and want to
 
 | File | Topic | Level |
 |------|-------|-------|
-| `00-START-HERE.md` | Overview & Learning Path | 🟢 Beginner |
-| `01-KAFKA-FUNDAMENTALS.md` | What is Kafka? Core Concepts & Architecture | 🟢 Beginner |
-| `02-KAFKA-SETUP.md` | Local Setup — Docker, CLI & First Topic | 🟢 Beginner |
-| `03-DOTNET-KAFKA-BASICS.md` | First .NET Producer & Consumer | 🟢 Beginner |
-| `04-PRODUCERS-DEEP-DIVE.md` | Advanced Producer Patterns in .NET | 🟡 Intermediate |
-| `05-CONSUMERS-DEEP-DIVE.md` | Advanced Consumer Patterns & Consumer Groups | 🟡 Intermediate |
-| `06-TOPICS-PARTITIONS-OFFSETS.md` | Topics, Partitions, Offsets — Deep Dive | 🟡 Intermediate |
-| `07-SERIALIZATION.md` | JSON, Avro & Protobuf Serialization in .NET | 🟡 Intermediate |
-| `08-ERROR-HANDLING.md` | Retry, Dead Letter Queue & Error Patterns | 🟡 Intermediate |
-| `09-KAFKA-WITH-AZURE.md` | Azure Event Hubs for Kafka & AKS Deployment | 🔴 Advanced |
-| `10-ADVANCED-PATTERNS.md` | CQRS, Saga, Outbox Pattern with Kafka | 🔴 Advanced |
-| `11-MASSTRANSIT-KAFKA.md` | MassTransit + Kafka in .NET | 🔴 Advanced |
-| `12-MONITORING-OBSERVABILITY.md` | Monitoring, Metrics & Alerting | 🔴 Advanced |
-| `13-REAL-WORLD-PROJECT.md` | Full Project: Order Processing System | 🔴 Advanced |
-| `14-KAFKA-SECURITY.md` | SASL, TLS, and ACLs in .NET | 🔴 Advanced |
-| `15-KAFKA-CONNECT.md` | Kafka Connect and Debezium CDC | 🟡 Intermediate |
-| `16-TESTING-KAFKA.md` | Unit & Integration Testing (Testcontainers) | 🟡 Intermediate |
+| [`00-START-HERE.md`](./00-START-HERE.md) | Overview & Learning Path | 🟢 Beginner |
+| [`01-KAFKA-FUNDAMENTALS.md`](./01-KAFKA-FUNDAMENTALS.md) | What is Kafka? Core Concepts & Architecture | 🟢 Beginner |
+| [`02-KAFKA-SETUP.md`](./02-KAFKA-SETUP.md) | Local Setup — Docker, CLI & First Topic | 🟢 Beginner |
+| [`03-DOTNET-KAFKA-BASICS.md`](./03-DOTNET-KAFKA-BASICS.md) | First .NET Producer & Consumer | 🟢 Beginner |
+| [`04-PRODUCERS-DEEP-DIVE.md`](./04-PRODUCERS-DEEP-DIVE.md) | Advanced Producer Patterns in .NET | 🟡 Intermediate |
+| [`05-CONSUMERS-DEEP-DIVE.md`](./05-CONSUMERS-DEEP-DIVE.md) | Advanced Consumer Patterns & Consumer Groups | 🟡 Intermediate |
+| [`06-TOPICS-PARTITIONS-OFFSETS.md`](./06-TOPICS-PARTITIONS-OFFSETS.md) | Topics, Partitions, Offsets — Deep Dive | 🟡 Intermediate |
+| [`07-SERIALIZATION.md`](./07-SERIALIZATION.md) | JSON, Avro & Protobuf Serialization in .NET | 🟡 Intermediate |
+| [`08-ERROR-HANDLING.md`](./08-ERROR-HANDLING.md) | Retry, Dead Letter Queue & Error Patterns | 🟡 Intermediate |
+| [`09-KAFKA-WITH-AZURE.md`](./09-KAFKA-WITH-AZURE.md) | Azure Event Hubs for Kafka & AKS Deployment | 🔴 Advanced |
+| [`10-ADVANCED-PATTERNS.md`](./10-ADVANCED-PATTERNS.md) | CQRS, Saga, Outbox Pattern with Kafka | 🔴 Advanced |
+| [`11-MASSTRANSIT-KAFKA.md`](./11-MASSTRANSIT-KAFKA.md) | MassTransit + Kafka in .NET | 🔴 Advanced |
+| [`12-MONITORING-OBSERVABILITY.md`](./12-MONITORING-OBSERVABILITY.md) | Monitoring, Metrics & Alerting | 🔴 Advanced |
+| [`13-REAL-WORLD-PROJECT.md`](./13-REAL-WORLD-PROJECT.md) | Full Project: Order Processing System | 🔴 Advanced |
+| [`14-KAFKA-SECURITY.md`](./14-KAFKA-SECURITY.md) | SASL, TLS, and ACLs in .NET | 🔴 Advanced |
+| [`15-KAFKA-CONNECT.md`](./15-KAFKA-CONNECT.md) | Kafka Connect and Debezium CDC | 🟡 Intermediate |
+| [`16-TESTING-KAFKA.md`](./16-TESTING-KAFKA.md) | Unit & Integration Testing (Testcontainers) | 🟡 Intermediate |
 
 ---
 
